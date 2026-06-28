@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/OTJPlgnc5CTUCLid9wVkdIkDga08OPQd/f079350b-a70f-4c1a-a331-8eeb3ea85612/files/">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instellingen — Planr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6C5CE7;--pl:#A78BFA;--pg:rgba(108,92,231,.25);--c:#00CEFF;--cg:rgba(0,206,255,.2);--g:#00D4AA;--gg:rgba(0,212,170,.2);--o:#FFB347;--og:rgba(255,179,71,.2);--pk:#FF6B9D;--pkg:rgba(255,107,157,.2);--bg:#070712;--bg2:#0D0D1E;--bg3:#13132A;--card:rgba(255,255,255,.04);--cardh:rgba(255,255,255,.08);--txt:#fff;--txt2:#B0BACE;--txt3:#5C6480;--b:rgba(255,255,255,.07);--ba:rgba(108,92,231,.4);--gp:linear-gradient(135deg,#6C5CE7,#A78BFA);--gc:linear-gradient(135deg,#00CEFF,#0096D6);--sh:0 8px 48px rgba(0,0,0,.5);--glow:0 0 30px rgba(108,92,231,.3);--r:16px;--rl:24px;--rxl:32px;--ease:cubic-bezier(.4,0,.2,1)}
+[data-theme=light]{--bg:#F5F5FF;--bg2:#fff;--bg3:#EDEDFB;--card:rgba(108,92,231,.05);--cardh:rgba(108,92,231,.09);--txt:#1A1A2E;--txt2:#44446A;--txt3:#9090B0;--b:rgba(108,92,231,.1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;transition:background .3s,color .3s}
+a{color:var(--pl);text-decoration:none;transition:.15s}a:hover{color:var(--c)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--cardh);border-radius:3px}
+.gr{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border:none;outline:none;transition:.3s var(--ease);white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.bp{background:var(--gp);color:#fff;box-shadow:0 4px 24px var(--pg)}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 36px var(--pg)}
+.bc{background:var(--gc);color:#fff}.bc:hover{transform:translateY(-2px)}
+.br{background:rgba(255,71,87,.15);color:#FF4757;border:1px solid rgba(255,71,87,.3)}.br:hover{background:rgba(255,71,87,.25)}
+.bg2{background:var(--card);color:var(--txt);border:1px solid var(--b)}.bg2:hover{background:var(--cardh);border-color:var(--ba)}
+.bsm{padding:8px 14px;font-size:13px;border-radius:8px}.blg{padding:14px 28px;font-size:16px;border-radius:var(--rl)}
+.w100{width:100%}
+.inp{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:13px 18px;color:var(--txt);font-family:'Poppins',sans-serif;font-size:15px;width:100%;transition:.3s;outline:none}
+.inp:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--pg);background:var(--cardh)}.inp::placeholder{color:var(--txt3)}
+.tw{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);box-shadow:var(--sh);pointer-events:all;max-width:380px;animation:tIn .4s var(--ease) forwards}
+.toast.out{animation:tOut .3s ease forwards}
+.toast.success{border-left:3px solid var(--g)}.toast.error{border-left:3px solid #FF4757}.toast.info{border-left:3px solid var(--c)}.toast.warn{border-left:3px solid var(--o)}
+@keyframes tIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes tOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;padding:20px 12px;z-index:100;overflow-y:auto;transition:.3s}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:28px;text-decoration:none}
+.lb{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sb-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;padding:0 14px;margin-bottom:6px}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r);color:var(--txt2);font-size:14px;font-weight:500;transition:.15s;text-decoration:none}
+.sb-nav a:hover{background:var(--card);color:var(--txt)}.sb-nav a.active{background:var(--pg);color:var(--pl);font-weight:600}
+.sb-bot{margin-top:auto}.sb-user{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);cursor:pointer;transition:.15s;text-decoration:none;margin-bottom:10px}
+.sb-user:hover{background:var(--cardh)}.av{width:36px;height:36px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.app-l{display:flex;min-height:100vh}.main-c{flex:1;margin-left:260px;padding:32px;min-height:100vh;max-width:calc(100vw - 260px)}
+.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--b);cursor:pointer;font-size:18px;transition:.15s;align-items:center;justify-content:center}
+@media(max-width:900px){.main-c{margin-left:0!important;padding:20px!important;padding-top:80px!important;max-width:100%!important}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:var(--sh)}.mob-btn{display:flex}.sett-g{grid-template-columns:1fr!important}}
+/* SETTINGS */
+.sett-g{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sett-card{background:var(--card);border:1px solid var(--b);border-radius:var(--rxl);padding:24px;transition:.3s}
+.sett-card-h{font-size:16px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info{display:flex;flex-direction:column;gap:2px}
+.toggle-lbl{font-size:15px;font-weight:600}
+.toggle-desc{font-size:12px;color:var(--txt3)}
+.toggle{position:relative;width:52px;height:28px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--b);border-radius:100px;cursor:pointer;transition:.3s;display:flex;align-items:center;padding:3px}
+.toggle-thumb{width:22px;height:22px;border-radius:50%;background:var(--txt3);transition:.3s;flex-shrink:0}
+.toggle input:checked+.toggle-track{background:var(--gp);border-color:var(--p)}
+.toggle input:checked+.toggle-track .toggle-thumb{transform:translateX(24px);background:#fff}
+/* Profile avatar */
+.prof-av{width:80px;height:80px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:#fff;margin:0 auto 16px;position:relative;cursor:pointer;transition:.3s}
+.prof-av:hover{transform:scale(1.05);box-shadow:var(--glow)}
+.prof-av-edit{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid var(--bg2)}
+/* Plan card */
+.plan-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:13px;font-weight:700}
+/* API key field */
+.key-wrap{position:relative}
+.key-show{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--txt3);font-size:17px;padding:4px;transition:.15s}
+.key-show:hover{color:var(--txt2)}
+/* Danger zone */
+.danger-zone{background:rgba(255,71,87,.05);border:1px solid rgba(255,71,87,.2);border-radius:var(--rl);padding:24px}
+/* Usage */
+.usage-bar{height:8px;background:var(--b);border-radius:4px;overflow:hidden;margin:6px 0 2px}
+.usage-fill{height:100%;border-radius:4px;transition:width .8s var(--ease)}
+[data-aos]{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+[data-aos].in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="app-l">
+  <button class="mob-btn" id="mob-btn">☰</button>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sb-logo"><div class="lb">📅</div><span style="font-size:20px;font-weight:800;color:var(--txt)"><span class="gr">Planr</span></span></a>
+    <div style="margin-bottom:28px"><div class="sb-lbl">Menu</div>
+      <ul class="sb-nav">
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+        <li><a href="planner.html" id="pl-link">📅 Pro Planner</a></li>
+        <li><a href="premium.html">💎 Abonnementen</a></li>
+        <li><a href="settings.html">⚙️ Instellingen</a></li>
+      </ul>
+    </div>
+    <div style="margin-top:auto">
+      <a href="settings.html" class="sb-user"><div class="av" id="s-av">?</div><div><div style="font-size:13px;font-weight:600;color:var(--txt)" id="s-name">Laden...</div><div style="font-size:11px;color:var(--txt3)" id="s-plan">Free</div></div></a>
+      <button class="btn bg2 bsm w100" onclick="logout()" style="margin-top:8px">🚪 Uitloggen</button>
+    </div>
+  </aside>
+  <main class="main-c">
+    <div style="margin-bottom:32px">
+      <h1 style="font-size:clamp(22px,3vw,34px);font-weight:900;letter-spacing:-.5px;margin-bottom:6px">⚙️ <span class="gr">Instellingen</span></h1>
+      <p style="color:var(--txt2);font-size:15px">Pas Planr aan naar jouw voorkeuren.</p>
+    </div>
+    <div class="sett-g">
+      <!-- LEFT -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <!-- Profile -->
+        <div class="sett-card" data-aos>
+          <div class="sett-card-h">👤 Mijn profiel</div>
+          <div style="text-align:center;margin-bottom:20px">
+            <div class="prof-av" id="prof-av" onclick="changeName()"><span id="prof-av-letter">?</span><div class="prof-av-edit">✏️</div></div>
+            <div style="font-size:18px;font-weight:700" id="prof-name">Laden...</div>
+            <div style="font-size:13px;color:var(--txt3)" id="prof-email">laden...</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">Naam wijzigen</label><div style="display:flex;gap:8px"><input type="text" class="inp" id="new-name" placeholder="Nieuwe naam..."><button class="btn bp bsm" onclick="saveName()">Opslaan</button></div></div>
+          </div>
+        </div>
+        <!-- Appearance -->
+        <div class="sett-card" data-aos>
+          <div class="sett-card-h">🎨 Uiterlijk</div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-lbl">🌙 Dark Mode</div><div class="toggle-desc">Donker thema voor je ogen</div></div>
+            <label class="toggle"><input type="checkbox" id="dark-tog" onchange="toggleDark()"><div class="toggle-track"><div class="toggle-thumb"></div></div></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-lbl">🔊 Geluidseffecten</div><div class="toggle-desc">Subtiele UI-geluiden</div></div>
+            <label class="toggle"><input type="checkbox" id="sound-tog" onchange="toggleSound()"><div class="toggle-track"><div class="toggle-thumb"></div></div></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><div class="toggle-lbl">✨ Animaties</div><div class="toggle-desc">Soepele overgangen</div></div>
+            <label class="toggle"><input type="checkbox" id="anim-tog" onchange="toggleAnim()"><div class="toggle-track"><div class="toggle-thumb"></div></div></label>
+          </div>
+        </div>
+        <!-- Danger Zone -->
+        <div class="danger-zone" data-aos>
+          <div style="font-size:16px;font-weight:700;color:#FF4757;margin-bottom:16px">⚠️ Gevaarlijke zone</div>
+          <div style="font-size:14px;color:var(--txt2);margin-bottom:16px;line-height:1.7">Let op: deze acties kunnen niet ongedaan worden gemaakt.</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn br bsm" onclick="clearData()">🗑️ Alle plannen & taken wissen</button>
+            <button class="btn br bsm" onclick="deleteAccount()">❌ Account verwijderen</button>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <!-- Plan info -->
+        <div class="sett-card" data-aos>
+          <div class="sett-card-h">💎 Mijn abonnement</div>
+          <div style="text-align:center;padding:16px 0">
+            <div class="plan-badge" id="plan-badge" style="margin-bottom:12px;background:var(--pg);color:var(--pl);border:1px solid var(--ba)"></div>
+            <div id="plan-desc" style="font-size:13px;color:var(--txt2);line-height:1.8;text-align:left;background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:16px"></div>
+            <a href="premium.html" class="btn bp w100">⬆️ Abonnement beheren</a>
+          </div>
+        </div>
+        <!-- AI Usage -->
+        <div class="sett-card" data-aos>
+          <div class="sett-card-h">📊 AI Gebruik</div>
+          <div id="usage-details" style="display:flex;flex-direction:column;gap:16px"></div>
+        </div>
+        <!-- API Key -->
+        <div class="sett-card" data-aos>
+          <div class="sett-card-h">🔑 OpenAI API Key</div>
+          <div style="background:var(--og);border:1px solid rgba(255,179,71,.3);border-radius:var(--r);padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--o);line-height:1.7">
+            <strong>Hoe werkt het?</strong><br>
+            Planr gebruikt jouw eigen OpenAI API key voor de AI-functies. Je hebt volledige controle over kosten en data. Maak een key aan op <a href="https://platform.openai.com" target="_blank" style="color:var(--c)">platform.openai.com</a>.
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="key-wrap"><input type="password" class="inp" id="api-key" placeholder="sk-..." style="padding-right:48px"><button class="key-show" id="key-show" onclick="toggleKey()">👁️</button></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn bp w100" onclick="saveKey()">💾 Opslaan</button>
+              <button class="btn bg2 bsm" onclick="testKey()">🧪 Testen</button>
+              <button class="btn br bsm" onclick="delKey()">🗑️</button>
+            </div>
+            <div id="key-status" style="font-size:13px;display:none"></div>
+          </div>
+        </div>
+        <!-- About -->
+        <div class="sett-card" data-aos style="background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(0,206,255,.05))">
+          <div class="sett-card-h">ℹ️ Over Planr</div>
+          <div style="font-size:14px;color:var(--txt2);line-height:1.8">
+            <div style="font-size:20px;font-weight:800;margin-bottom:8px"><span class="gr">Planr</span> v1.0</div>
+            De slimste planningsapp voor scholieren.<br>
+            Gebouwd met ❤️ voor studenten.<br><br>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span>🤖 AI: OpenAI GPT-4o-mini</span>
+              <span>💾 Opslag: Lokaal (browser)</span>
+              <span>🔒 Privacy: 100% jouw data</span>
+              <span>📅 Versie: 2025.1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+'use strict';
+const store={get:(k)=>{try{return JSON.parse(localStorage.getItem('planr_'+k))}catch{return null}},set:(k,v)=>localStorage.setItem('planr_'+k,JSON.stringify(v)),del:(k)=>localStorage.removeItem('planr_'+k)};
+const NAMES={free:'Free',basis:'Basis ⭐',pro:'Pro ✦'};
+const LIMITS={free:{day:3,week:0},basis:{day:10,week:2},pro:{day:Infinity,week:Infinity}};
+const Cfg={get(){return store.get('cfg')||{dark:true,sound:true,anim:true}},set(u){store.set('cfg',{...this.get(),...u})},theme(){document.documentElement.setAttribute('data-theme',this.get().dark?'dark':'light')}};
+const Snd={play(t){if(!Cfg.get().sound)return;try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);const c={ok:{f:880,d:.2,v:.12},err:{f:200,d:.2,v:.08},pop:{f:1200,d:.06,v:.08},click:{f:800,d:.08,v:.1}}[t]||{f:800,d:.08,v:.1};o.frequency.value=c.f;g.gain.setValueAtTime(c.v,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+c.d);o.start();o.stop(ctx.currentTime+c.d)}catch{}}};
+const Toast={_w:null,w(){if(!this._w){this._w=document.createElement('div');this._w.className='tw';document.body.appendChild(this._w)}return this._w},show(msg,type='info',dur=4000){const ic={success:'✅',error:'❌',info:'💡',warn:'⚠️'}[type]||'💡';const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span style="font-size:18px">${ic}</span><span style="font-size:14px;font-weight:500;color:var(--txt)">${msg}</span>`;this.w().appendChild(el);Snd.play(type==='success'?'ok':type==='error'?'err':'pop');setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},dur)},ok:(m,d)=>Toast.show(m,'success',d),err:(m,d)=>Toast.show(m,'error',d),info:(m,d)=>Toast.show(m,'info',d),warn:(m,d)=>Toast.show(m,'warn',d)};
+const Auth={user(){return store.get('sess')},profile(){const s=this.user();if(!s)return null;return(store.get('users')||[]).find(u=>u.id===s.id)||null},in(){return!!this.user()},out(){store.del('sess');location.href='login.html'},update(upd){const s=this.user();if(!s)return;const us=store.get('users')||[];const i=us.findIndex(u=>u.id===s.id);if(i>=0){us[i]={...us[i],...upd};store.set('users',us);return us[i]}}};
+
+function logout(){Auth.out()}
+function initAOS(){const obs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){const dl=+e.target.dataset.aosDelay||0;setTimeout(()=>e.target.classList.add('in'),dl);obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('[data-aos]').forEach(el=>obs.observe(el))}
+
+function init(){
+  if(!Auth.in()){location.href='login.html';return}
+  const p=Auth.profile();if(!p)return;
+  // Sidebar
+  document.getElementById('s-av').textContent=p.name[0].toUpperCase();
+  document.getElementById('s-name').textContent=p.name;
+  document.getElementById('s-plan').textContent=NAMES[p.plan]||'Free';
+  document.querySelector('.sb-nav a[href="settings.html"]').classList.add('active');
+  const pl=document.getElementById('pl-link');if(p.plan!=='pro'){pl.style.opacity='.5';pl.addEventListener('click',e=>{e.preventDefault();Toast.warn('Pro Planner is exclusief voor Pro!');})}
+  // Mobile
+  const btn=document.getElementById('mob-btn');const sb=document.getElementById('sidebar');
+  btn.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(!sb.contains(e.target)&&!btn.contains(e.target))sb.classList.remove('open')});
+  // Profile
+  document.getElementById('prof-av-letter').textContent=p.name[0].toUpperCase();
+  document.getElementById('prof-name').textContent=p.name;
+  document.getElementById('prof-email').textContent=p.email;
+  document.getElementById('new-name').value=p.name;
+  // Toggles
+  const cfg=Cfg.get();
+  document.getElementById('dark-tog').checked=cfg.dark!==false;
+  document.getElementById('sound-tog').checked=cfg.sound!==false;
+  document.getElementById('anim-tog').checked=cfg.anim!==false;
+  // Plan
+  renderPlan(p);
+  // Usage
+  renderUsage(p);
+  // API key
+  const key=store.get('ai_key')||'';
+  if(key)document.getElementById('api-key').value=key;
+}
+
+function renderPlan(p){
+  const infos={free:{badge:'🆓 Free',col:'var(--pg)',bcol:'var(--pl)',border:'var(--ba)',desc:'✅ 3 dagplannen/week<br>✅ Basisdashboard<br>❌ Weekplanner<br>❌ Pro Planner'},basis:{badge:'⭐ Basis',col:'rgba(167,139,250,.2)',bcol:'var(--pl)',border:'var(--ba)',desc:'✅ 10 dagplannen/week<br>✅ 2 weekplannen/maand<br>✅ Prioriteitsanalyse<br>❌ Pro Planner'},pro:{badge:'✦ Pro',col:'var(--cg)',bcol:'var(--c)',border:'rgba(0,206,255,.4)',desc:'✅ Onbeperkt alles<br>✅ Pro Planner pagina ✦<br>✅ AI-coaching<br>✅ Plangeschiedenis'}};
+  const info=infos[p.plan]||infos.free;
+  const badge=document.getElementById('plan-badge');
+  badge.textContent=info.badge;badge.style.background=info.col;badge.style.color=info.bcol;badge.style.borderColor=info.border;
+  document.getElementById('plan-desc').innerHTML=info.desc;
+}
+
+function renderUsage(p){
+  const lim=LIMITS[p.plan];
+  const ws=()=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-d.getDay()+(d.getDay()===0?-6:1));return d.getTime()};
+  const ms=()=>{const d=new Date();d.setDate(1);d.setHours(0,0,0,0);return d.getTime()};
+  const dayUsed=(p.usage?.day||[]).filter(t=>t>=ws()).length;
+  const weekUsed=(p.usage?.week||[]).filter(t=>t>=ms()).length;
+  const dayPct=lim.day===Infinity?5:Math.round((dayUsed/lim.day)*100);
+  const weekPct=lim.week===Infinity?5:lim.week===0?0:Math.round((weekUsed/lim.week)*100);
+  document.getElementById('usage-details').innerHTML=`
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px"><span style="color:var(--txt2)">☀️ Dagplannen (deze week)</span><span style="font-weight:700;color:var(--pl)">${lim.day===Infinity?'∞':dayUsed+'/'+lim.day}</span></div>
+      <div class="usage-bar"><div class="usage-fill" style="width:${dayPct}%;background:var(--gp)"></div></div>
+      <div style="font-size:11px;color:var(--txt3)">${lim.day===Infinity?'Onbeperkt':'Nog '+(Math.max(0,lim.day-dayUsed))+' over'}</div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:2px"><span style="color:var(--txt2)">📅 Weekplannen (deze maand)</span><span style="font-weight:700;color:var(--c)">${lim.week===Infinity?'∞':lim.week===0?'N/B':weekUsed+'/'+lim.week}</span></div>
+      <div class="usage-bar"><div class="usage-fill" style="width:${weekPct}%;background:var(--gc)"></div></div>
+      <div style="font-size:11px;color:var(--txt3)">${lim.week===Infinity?'Onbeperkt':lim.week===0?'Upgrade naar Basis+':'Nog '+(Math.max(0,lim.week-weekUsed))+' over'}</div>
+    </div>
+    <a href="premium.html" class="btn bp bsm w100" style="margin-top:4px">💎 Meer plannen → Upgraden</a>
+  `;
+}
+
+// Toggles
+function toggleDark(){const v=document.getElementById('dark-tog').checked;Cfg.set({dark:v});Cfg.theme();Snd.play('click');Toast.info(v?'Dark mode aan 🌙':'Light mode aan ☀️',2000)}
+function toggleSound(){const v=document.getElementById('sound-tog').checked;Cfg.set({sound:v});if(v)Snd.play('ok');Toast.info(v?'Geluid aan 🔊':'Geluid uit 🔇',2000)}
+function toggleAnim(){const v=document.getElementById('anim-tog').checked;Cfg.set({anim:v});Toast.info(v?'Animaties aan ✨':'Animaties uit',2000);Snd.play('click')}
+
+// Profile
+function changeName(){document.getElementById('new-name').focus()}
+function saveName(){
+  const name=document.getElementById('new-name').value.trim();
+  if(!name||name.length<2){Toast.err('Naam moet minimaal 2 tekens zijn.',2000);return}
+  Auth.update({name});
+  document.getElementById('prof-name').textContent=name;
+  document.getElementById('prof-av-letter').textContent=name[0].toUpperCase();
+  document.getElementById('s-av').textContent=name[0].toUpperCase();
+  document.getElementById('s-name').textContent=name;
+  Snd.play('ok');Toast.ok('Naam opgeslagen! ✅',2000);
+}
+
+// API Key
+function toggleKey(){const inp=document.getElementById('api-key');const show=inp.type==='password';inp.type=show?'text':'password';document.getElementById('key-show').textContent=show?'🙈':'👁️'}
+function saveKey(){
+  const key=document.getElementById('api-key').value.trim();
+  if(!key){Toast.err('Voer een geldige API key in.',2000);return}
+  if(!key.startsWith('sk-')){Toast.warn('Een OpenAI key begint met "sk-".',2000);return}
+  store.set('ai_key',key);Snd.play('ok');Toast.ok('API key opgeslagen! 🔑');
+  setKeyStatus('✅ Key opgeslagen','var(--g)');
+}
+function delKey(){store.del('ai_key');document.getElementById('api-key').value='';Toast.info('API key verwijderd.',2000);setKeyStatus('❌ Geen key','#FF4757')}
+function setKeyStatus(msg,col){const el=document.getElementById('key-status');el.style.display='block';el.style.color=col;el.textContent=msg}
+async function testKey(){
+  const key=document.getElementById('api-key').value.trim()||store.get('ai_key');
+  if(!key){Toast.err('Sla eerst een API key op!');return}
+  setKeyStatus('⏳ Testen...','var(--o)');
+  try{
+    const r=await fetch('https://api.openai.com/v1/models',{headers:{Authorization:`Bearer ${key}`}});
+    if(r.ok){setKeyStatus('✅ API key werkt!','var(--g)');Snd.play('ok');Toast.ok('API key is geldig! 🎉')}
+    else{const e=await r.json();setKeyStatus('❌ Ongeldig: '+e?.error?.message,'#FF4757');Toast.err('API key ongeldig!')}
+  }catch(e){setKeyStatus('❌ Verbindingsfout','#FF4757');Toast.err('Verbinding mislukt. Controleer je internet.')}
+}
+
+// Danger
+function clearData(){
+  if(!confirm('Weet je zeker dat je alle plannen en taken wilt wissen? Dit kan niet ongedaan worden.'))return;
+  store.del('today_plan');store.del('tasks');store.del('streak');store.del('last_active');store.del('pro_history');
+  Snd.play('pop');Toast.ok('Data gewist! 🗑️');
+}
+function deleteAccount(){
+  if(!confirm('WEET JE ZEKER DAT JE JE ACCOUNT WIL VERWIJDEREN? Alles wordt gewist!'))return;
+  const s=Auth.user();if(!s)return;
+  const us=store.get('users')||[];store.set('users',us.filter(u=>u.id!==s.id));
+  ['sess','today_plan','tasks','streak','last_active','pro_history','ai_key'].forEach(k=>store.del(k));
+  Toast.ok('Account verwijderd.',2000);setTimeout(()=>location.href='index.html',1500);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{Cfg.theme();initAOS();init()});
+</script>
+</body>
+</html>
