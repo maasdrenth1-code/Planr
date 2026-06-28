@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inloggen — Planr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6C5CE7;--pl:#A78BFA;--pg:rgba(108,92,231,.25);--c:#00CEFF;--cg:rgba(0,206,255,.2);--pk:#FF6B9D;--g:#00D4AA;--gg:rgba(0,212,170,.2);--o:#FFB347;--bg:#070712;--bg2:#0D0D1E;--bg3:#13132A;--card:rgba(255,255,255,.04);--cardh:rgba(255,255,255,.08);--txt:#fff;--txt2:#B0BACE;--txt3:#5C6480;--b:rgba(255,255,255,.07);--ba:rgba(108,92,231,.4);--gp:linear-gradient(135deg,#6C5CE7,#A78BFA);--gc:linear-gradient(135deg,#00CEFF,#0096D6);--sh:0 8px 48px rgba(0,0,0,.5);--glow:0 0 30px rgba(108,92,231,.3);--r:16px;--rl:24px;--rxl:32px;--ease:cubic-bezier(.4,0,.2,1)}
+[data-theme=light]{--bg:#F5F5FF;--bg2:#fff;--bg3:#EDEDFB;--card:rgba(108,92,231,.05);--cardh:rgba(108,92,231,.09);--txt:#1A1A2E;--txt2:#44446A;--txt3:#9090B0;--b:rgba(108,92,231,.1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;overflow-x:hidden;transition:background .3s,color .3s;min-height:100vh}
+a{color:var(--pl);text-decoration:none;transition:.15s ease}a:hover{color:var(--c)}
+::selection{background:var(--pg);color:var(--pl)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--cardh);border-radius:3px}
+.gr{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border:none;outline:none;transition:.3s var(--ease);position:relative;overflow:hidden;white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.bp{background:var(--gp);color:#fff;box-shadow:0 4px 24px var(--pg)}.bp:hover{transform:translateY(-3px);box-shadow:0 8px 36px var(--pg)}
+.bg2{background:var(--card);color:var(--txt);border:1px solid var(--b)}.bg2:hover{background:var(--cardh);border-color:var(--ba)}
+.blg{padding:16px 36px;font-size:17px;border-radius:var(--rl)}
+.bsm{padding:8px 16px;font-size:13px;border-radius:8px}
+.w100{width:100%}
+.ig{display:flex;flex-direction:column;gap:6px}
+.ig label{font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px}
+.iw{position:relative}
+.iw .icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--txt3);pointer-events:none;font-size:17px}
+.iw .inp{padding-left:44px}
+.inp{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:13px 18px;color:var(--txt);font-family:'Poppins',sans-serif;font-size:15px;width:100%;transition:.3s;outline:none}
+.inp:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--pg);background:var(--cardh)}
+.inp::placeholder{color:var(--txt3)}
+.tw{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);box-shadow:var(--sh);pointer-events:all;max-width:380px;animation:tIn .4s var(--ease) forwards}
+.toast.out{animation:tOut .3s ease forwards}
+.toast.success{border-left:3px solid var(--g)}.toast.error{border-left:3px solid #FF4757}.toast.info{border-left:3px solid var(--c)}
+@keyframes tIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes tOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+/* LAYOUT */
+.auth-page{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+/* LEFT VISUAL */
+.auth-vis{background:radial-gradient(ellipse 100% 100% at 50% 0%,rgba(108,92,231,.5) 0%,transparent 70%),radial-gradient(ellipse 80% 60% at 100% 100%,rgba(0,206,255,.2) 0%,transparent 60%),var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;position:relative;overflow:hidden}
+.auth-vis-t{font-size:40px;font-weight:900;text-align:center;line-height:1.1;margin-bottom:16px;letter-spacing:-1px}
+.auth-vis-s{font-size:15px;color:var(--txt2);text-align:center;line-height:1.7;max-width:320px;margin-bottom:40px}
+.auth-feats{display:flex;flex-direction:column;gap:14px;width:100%;max-width:300px}
+.af{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:14px;animation:aFloat 5s ease-in-out infinite}
+.af-ic{font-size:22px;flex-shrink:0}
+.af-t{font-size:13px;font-weight:600;margin-bottom:2px}
+.af-d{font-size:12px;color:var(--txt2)}
+.float-card{position:absolute;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:14px 18px;backdrop-filter:blur(20px)}
+.fc1{top:12%;right:-10px;animation:aFloat 5s ease-in-out infinite}
+.fc2{bottom:18%;left:-10px;animation:aFloat 5s ease-in-out infinite;animation-delay:-2.5s}
+@keyframes aFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* RIGHT FORM */
+.auth-form-side{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;background:var(--bg)}
+.auth-wrap{width:100%;max-width:440px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--txt2);font-size:14px;margin-bottom:32px;transition:.15s}
+.back-link:hover{color:var(--txt)}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;text-decoration:none}
+.logo-box{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.auth-logo-t{font-size:22px;font-weight:800;color:var(--txt)}
+.auth-h{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.auth-sub{font-size:15px;color:var(--txt2);margin-bottom:32px}
+.auth-form{display:flex;flex-direction:column;gap:18px}
+.pw-wrap{position:relative}
+.pw-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--txt3);font-size:17px;padding:4px;transition:.15s}
+.pw-btn:hover{color:var(--txt2)}
+.auth-row{display:flex;align-items:center;justify-content:space-between;font-size:14px}
+.chk-lbl{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--txt2)}
+.chk-lbl input{accent-color:var(--p);width:15px;height:15px}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);cursor:pointer;font-size:14px;font-weight:600;color:var(--txt);transition:.3s var(--ease);width:100%;font-family:'Poppins',sans-serif}
+.social-btn:hover{background:var(--cardh);border-color:var(--ba);transform:translateY(-2px)}
+.msg{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:500;display:none;margin-bottom:4px}
+.msg.show{display:block}
+.msg.err{background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.3);color:#FF4757}
+.msg.ok{background:var(--gg);border:1px solid rgba(0,212,170,.3);color:var(--g)}
+.div-or{display:flex;align-items:center;gap:14px;color:var(--txt3);font-size:13px;margin:24px 0}
+.div-or::before,.div-or::after{content:'';flex:1;height:1px;background:var(--b)}
+@media(max-width:800px){.auth-page{grid-template-columns:1fr}.auth-vis{display:none}}
+</style>
+</head>
+<body>
+<div class="auth-page">
+  <!-- LEFT -->
+  <div class="auth-vis">
+    <div class="float-card fc1">
+      <div style="font-size:13px;font-weight:600;margin-bottom:6px">📅 Vandaag gepland</div>
+      <div style="font-size:12px;color:var(--txt2);line-height:1.8">✅ Wiskunde huiswerk<br>📖 Biologie leren<br>⚽ Sport om 17:00</div>
+    </div>
+    <h2 class="auth-vis-t">Welkom<br><span class="gr">terug!</span></h2>
+    <p class="auth-vis-s">Log in en ga verder met slim plannen. Je AI planner wacht al op je.</p>
+    <div class="auth-feats">
+      <div class="af"><div class="af-ic">🤖</div><div><div class="af-t">AI Dagplanning</div><div class="af-d">Jouw persoonlijke assistent</div></div></div>
+      <div class="af" style="animation-delay:-1.5s"><div class="af-ic">⚡</div><div><div class="af-t">30 seconden plan</div><div class="af-d">Snel, slim & gepersonaliseerd</div></div></div>
+      <div class="af" style="animation-delay:-3s"><div class="af-ic">📊</div><div><div class="af-t">Voortgang</div><div class="af-d">Zie hoe productief je bent</div></div></div>
+    </div>
+    <div class="float-card fc2">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:30px;height:30px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">S</div>
+        <div><div style="font-size:12px;font-weight:600">Sara, 17</div><div style="font-size:11px;color:var(--g)">✓ Plan gemaakt!</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- RIGHT -->
+  <div class="auth-form-side">
+    <div class="auth-wrap">
+      <a href="index.html" class="back-link">← Terug naar home</a>
+      <a href="index.html" class="auth-logo">
+        <div class="logo-box">📅</div>
+        <span class="auth-logo-t"><span class="gr">Planr</span></span>
+      </a>
+      <h1 class="auth-h">Inloggen</h1>
+      <p class="auth-sub">Nog geen account? <a href="register.html">Gratis registreren →</a></p>
+      <div id="msg" class="msg"></div>
+      <form class="auth-form" id="lform" autocomplete="on">
+        <div class="ig">
+          <label>E-mailadres</label>
+          <div class="iw"><span class="icon">✉️</span><input type="email" class="inp" id="email" placeholder="jou@email.nl" autocomplete="email" required></div>
+        </div>
+        <div class="ig">
+          <label>Wachtwoord</label>
+          <div class="pw-wrap">
+            <input type="password" class="inp" id="pw" placeholder="••••••••" autocomplete="current-password" style="padding-right:48px" required>
+            <button type="button" class="pw-btn" id="pwtg">👁️</button>
+          </div>
+        </div>
+        <div class="auth-row">
+          <label class="chk-lbl"><input type="checkbox" id="rem"> Onthoud mij</label>
+          <a href="#" id="forgot" style="font-size:14px">Wachtwoord vergeten?</a>
+        </div>
+        <button type="submit" class="btn bp blg w100" id="lbtn">
+          <span id="lbtn-t">Inloggen →</span>
+          <span id="lbtn-sp" style="display:none" class="spin"></span>
+        </button>
+      </form>
+      <div class="div-or">of ga door met</div>
+      <div class="social-grid">
+        <button class="social-btn" onclick="demoLogin()">🎓 Demo account</button>
+        <button class="social-btn" onclick="proDemo()">✦ Pro demo</button>
+      </div>
+      <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--txt3)">Door in te loggen ga je akkoord met onze <a href="#">Voorwaarden</a></p>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+const store={get:(k)=>{try{return JSON.parse(localStorage.getItem('planr_'+k))}catch{return null}},set:(k,v)=>localStorage.setItem('planr_'+k,JSON.stringify(v)),del:(k)=>localStorage.removeItem('planr_'+k)};
+const Cfg={get(){return store.get('cfg')||{dark:true,sound:true}},set(u){store.set('cfg',{...this.get(),...u})},theme(){document.documentElement.setAttribute('data-theme',this.get().dark?'dark':'light')}};
+const Snd={play(t){if(!Cfg.get().sound)return;try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);const c={click:{f:800,d:.08,v:.1},ok:{f:880,d:.2,v:.12},err:{f:200,d:.2,v:.08}}[t]||{f:800,d:.08,v:.1};o.frequency.value=c.f;g.gain.setValueAtTime(c.v,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+c.d);o.start();o.stop(ctx.currentTime+c.d)}catch{}}};
+const Toast={_w:null,w(){if(!this._w){this._w=document.createElement('div');this._w.className='tw';document.body.appendChild(this._w)}return this._w},show(msg,type='info',dur=4000){const ic={success:'✅',error:'❌',info:'💡',warn:'⚠️'}[type]||'💡';const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span style="font-size:18px">${ic}</span><span style="font-size:14px;font-weight:500;color:var(--txt)">${msg}</span>`;this.w().appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},dur)},ok:(m,d)=>Toast.show(m,'success',d),err:(m,d)=>Toast.show(m,'error',d),info:(m,d)=>Toast.show(m,'info',d)};
+const Auth={
+  register(name,email,pw,plan='free'){const us=store.get('users')||[];if(us.find(u=>u.email.toLowerCase()===email.toLowerCase()))return{ok:false,msg:'E-mailadres al in gebruik.'};const u={id:crypto.randomUUID(),name,email,pw:btoa(pw),plan,at:Date.now(),usage:{day:[],week:[]}};us.push(u);store.set('users',us);store.set('sess',{id:u.id});return{ok:true,u}},
+  login(email,pw){const us=store.get('users')||[];const u=us.find(u=>u.email.toLowerCase()===email.toLowerCase()&&u.pw===btoa(pw));if(!u)return{ok:false,msg:'E-mailadres of wachtwoord onjuist.'};store.set('sess',{id:u.id});return{ok:true,u}},
+  in(){return!!store.get('sess')}
+};
+document.addEventListener('DOMContentLoaded',()=>{Cfg.theme();if(Auth.in())location.href='dashboard.html'});
+
+// Password toggle
+document.getElementById('pwtg').addEventListener('click',()=>{const i=document.getElementById('pw');const show=i.type==='password';i.type=show?'text':'password';document.getElementById('pwtg').textContent=show?'🙈':'👁️'});
+
+// Forgot
+document.getElementById('forgot').addEventListener('click',e=>{e.preventDefault();Toast.info('Wachtwoord reset: maak een nieuw account aan of neem contact op.')});
+
+function showMsg(t,type='err'){const el=document.getElementById('msg');el.textContent=t;el.className=`msg show ${type}`;Snd.play(type==='ok'?'ok':'err')}
+
+// Submit
+document.getElementById('lform').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const email=document.getElementById('email').value.trim();
+  const pw=document.getElementById('pw').value;
+  if(!email||!pw){showMsg('Vul alle velden in.');return}
+  const btn=document.getElementById('lbtn');
+  btn.disabled=true;document.getElementById('lbtn-t').textContent='Inloggen...';document.getElementById('lbtn-sp').style.display='inline-block';
+  await new Promise(r=>setTimeout(r,700));
+  const res=Auth.login(email,pw);
+  if(!res.ok){btn.disabled=false;document.getElementById('lbtn-t').textContent='Inloggen →';document.getElementById('lbtn-sp').style.display='none';showMsg(res.msg);return}
+  showMsg('Welkom terug! 🎉','ok');Snd.play('ok');
+  setTimeout(()=>location.href='dashboard.html',800);
+});
+
+function demoLogin(){const r=Auth.login('demo@planr.nl','Demo1234!');if(!r.ok)Auth.register('Demo Scholier','demo@planr.nl','Demo1234!','basis');Auth.login('demo@planr.nl','Demo1234!');showMsg('Demo geladen! 🎓','ok');Snd.play('ok');setTimeout(()=>location.href='dashboard.html',800)}
+function proDemo(){const r=Auth.login('pro@planr.nl','Pro1234!');if(!r.ok)Auth.register('Pro Gebruiker','pro@planr.nl','Pro1234!','pro');Auth.login('pro@planr.nl','Pro1234!');showMsg('Pro demo geladen! ✦','ok');Snd.play('ok');setTimeout(()=>location.href='dashboard.html',800)}
+
+document.querySelectorAll('.inp').forEach(i=>i.addEventListener('focus',()=>Snd.play('click')));
+</script>
+</body>
+</html>
