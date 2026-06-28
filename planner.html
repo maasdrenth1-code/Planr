@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/OTJPlgnc5CTUCLid9wVkdIkDga08OPQd/f079350b-a70f-4c1a-a331-8eeb3ea85612/files/">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Planner — Planr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6C5CE7;--pl:#A78BFA;--pg:rgba(108,92,231,.25);--c:#00CEFF;--cg:rgba(0,206,255,.2);--g:#00D4AA;--gg:rgba(0,212,170,.2);--o:#FFB347;--og:rgba(255,179,71,.2);--pk:#FF6B9D;--pkg:rgba(255,107,157,.2);--bg:#070712;--bg2:#0D0D1E;--bg3:#13132A;--card:rgba(255,255,255,.04);--cardh:rgba(255,255,255,.08);--txt:#fff;--txt2:#B0BACE;--txt3:#5C6480;--b:rgba(255,255,255,.07);--ba:rgba(108,92,231,.4);--gp:linear-gradient(135deg,#6C5CE7,#A78BFA);--gc:linear-gradient(135deg,#00CEFF,#0096D6);--gpk:linear-gradient(135deg,#FF6B9D,#FF3E6F);--sh:0 8px 48px rgba(0,0,0,.5);--glow:0 0 30px rgba(108,92,231,.3);--r:16px;--rl:24px;--rxl:32px;--ease:cubic-bezier(.4,0,.2,1)}
+[data-theme=light]{--bg:#F5F5FF;--bg2:#fff;--bg3:#EDEDFB;--card:rgba(108,92,231,.05);--cardh:rgba(108,92,231,.09);--txt:#1A1A2E;--txt2:#44446A;--txt3:#9090B0;--b:rgba(108,92,231,.1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;transition:background .3s,color .3s}
+a{color:var(--pl);text-decoration:none;transition:.15s}a:hover{color:var(--c)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--cardh);border-radius:3px}
+.gr{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border:none;outline:none;transition:.3s var(--ease);white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.bp{background:var(--gp);color:#fff;box-shadow:0 4px 24px var(--pg)}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 36px var(--pg)}
+.bc{background:var(--gc);color:#fff}.bc:hover{transform:translateY(-2px)}
+.bg2{background:var(--card);color:var(--txt);border:1px solid var(--b)}.bg2:hover{background:var(--cardh);border-color:var(--ba)}
+.bsm{padding:8px 14px;font-size:13px;border-radius:8px}.blg{padding:14px 28px;font-size:16px;border-radius:var(--rl)}
+.w100{width:100%}
+.inp{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:13px 18px;color:var(--txt);font-family:'Poppins',sans-serif;font-size:15px;width:100%;transition:.3s;outline:none}
+.inp:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--pg);background:var(--cardh)}.inp::placeholder{color:var(--txt3)}
+textarea.inp{resize:vertical;min-height:100px}
+.tw{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);box-shadow:var(--sh);pointer-events:all;max-width:380px;animation:tIn .4s var(--ease) forwards}
+.toast.out{animation:tOut .3s ease forwards}
+.toast.success{border-left:3px solid var(--g)}.toast.error{border-left:3px solid #FF4757}.toast.info{border-left:3px solid var(--c)}.toast.warn{border-left:3px solid var(--o)}
+@keyframes tIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes tOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+.spin{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;padding:20px 12px;z-index:100;overflow-y:auto;transition:.3s}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:28px;text-decoration:none}
+.lb{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sb-logo-t{font-size:20px;font-weight:800;color:var(--txt)}
+.sb-sec{margin-bottom:28px}.sb-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;padding:0 14px;margin-bottom:6px}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r);color:var(--txt2);font-size:14px;font-weight:500;transition:.15s;text-decoration:none}
+.sb-nav a:hover{background:var(--card);color:var(--txt)}.sb-nav a.active{background:var(--pg);color:var(--pl);font-weight:600}
+.sb-bot{margin-top:auto}
+.sb-user{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);cursor:pointer;transition:.15s;text-decoration:none;margin-bottom:10px}
+.sb-user:hover{background:var(--cardh)}.av{width:36px;height:36px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.app-l{display:flex;min-height:100vh}.main-c{flex:1;margin-left:260px;padding:32px;min-height:100vh}
+.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--b);cursor:pointer;font-size:18px;transition:.15s;align-items:center;justify-content:center}
+@media(max-width:900px){.main-c{margin-left:0!important;padding:20px!important;padding-top:80px!important}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:var(--sh)}.mob-btn{display:flex}}
+/* PRO BADGE */
+.pro-badge{background:linear-gradient(135deg,#FFB347,#FF6B9D);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.5px;display:inline-block;margin-bottom:8px}
+/* FORM */
+.pro-form{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.energy-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(to right,var(--g),var(--c),var(--p));outline:none;cursor:pointer}
+.energy-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gp);border:3px solid var(--bg2);cursor:pointer;box-shadow:0 2px 8px var(--pg)}
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:4px;margin-bottom:20px}
+.tab-btn{flex:1;padding:10px;border-radius:12px;background:none;border:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:var(--txt2);transition:.2s}
+.tab-btn.active{background:var(--gp);color:#fff;box-shadow:0 2px 12px var(--pg)}
+.tab-pane{display:none}.tab-pane.active{display:block;animation:tabIn .3s var(--ease)}
+@keyframes tabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* AI OUTPUT */
+.pro-out{background:var(--bg3);border:1px solid var(--b);border-radius:var(--rl);padding:28px;min-height:300px;font-size:14px;line-height:1.9;color:var(--txt2)}
+.pro-out h2{font-size:20px;color:var(--txt);margin:20px 0 10px;font-weight:700}
+.pro-out h3{font-size:17px;color:var(--txt);margin:16px 0 8px;font-weight:700}
+.pro-out h4{font-size:14px;font-weight:700;color:var(--pl);margin:12px 0 4px}
+.pro-out strong{color:var(--txt)}
+.pro-out ul{padding-left:22px;margin:8px 0}
+.pro-out li{margin:4px 0}
+.pro-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;color:var(--txt2)}
+.ai-dots{display:flex;gap:5px;align-items:center;justify-content:center;padding:24px}
+.ai-dot{width:10px;height:10px;border-radius:50%;background:var(--pl);animation:aiD 1.2s ease-in-out infinite}
+.ai-dot:nth-child(2){animation-delay:.2s}.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes aiD{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.2);opacity:1}}
+/* HISTORY */
+.hist-item{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:16px;margin-bottom:10px;cursor:pointer;transition:.2s}
+.hist-item:hover{background:var(--cardh);border-color:var(--ba)}
+.hist-d{font-size:12px;color:var(--txt3);margin-bottom:4px}
+.hist-p{font-size:14px;font-weight:600;color:var(--txt)}
+</style>
+</head>
+<body>
+<div class="app-l">
+  <button class="mob-btn" id="mob-btn">☰</button>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="sb-logo"><div class="lb">📅</div><span class="sb-logo-t"><span class="gr">Planr</span></span></a>
+    <div class="sb-sec">
+      <div class="sb-lbl">Menu</div>
+      <ul class="sb-nav">
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+        <li><a href="planner.html">📅 Pro Planner</a></li>
+        <li><a href="premium.html">💎 Abonnementen</a></li>
+        <li><a href="settings.html">⚙️ Instellingen</a></li>
+      </ul>
+    </div>
+    <div class="sb-bot">
+      <a href="settings.html" class="sb-user"><div class="av" id="s-av">P</div><div><div style="font-size:13px;font-weight:600;color:var(--txt)" id="s-name">Pro</div><div style="font-size:11px;color:var(--o)">Pro ✦</div></div></a>
+      <button class="btn bg2 bsm w100" onclick="logout()">🚪 Uitloggen</button>
+    </div>
+  </aside>
+  <main class="main-c">
+    <div style="margin-bottom:28px">
+      <div class="pro-badge">✦ Pro Exclusief</div>
+      <h1 style="font-size:clamp(24px,3vw,36px);font-weight:900;letter-spacing:-.5px;margin-bottom:6px">Pro <span class="gr">Planner</span></h1>
+      <p style="color:var(--txt2);font-size:15px">Jouw persoonlijke AI-studiecoach. Diepgaand, slim en volledig gepersonaliseerd.</p>
+    </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="setTab('form')">✨ Nieuw plan</button>
+      <button class="tab-btn" onclick="setTab('result')">📋 Resultaat</button>
+      <button class="tab-btn" onclick="setTab('history')">📚 Geschiedenis</button>
+    </div>
+    <!-- FORM TAB -->
+    <div class="tab-pane active" id="tab-form">
+      <div style="background:linear-gradient(135deg,rgba(108,92,231,.12),rgba(0,206,255,.06));border:1px solid var(--ba);border-radius:var(--rxl);padding:28px;margin-bottom:24px">
+        <h2 style="font-size:19px;font-weight:700;margin-bottom:6px">🤖 Vertel mij alles</h2>
+        <p style="font-size:14px;color:var(--txt2)">Hoe meer je invult, hoe beter en persoonlijker je plan wordt. De AI stelt vervolgens diepgaande aanbevelingen op!</p>
+      </div>
+      <form id="pro-form" onsubmit="genProPlan(event)">
+        <div class="pro-form">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">📚 Schoolrooster (deze week)</label><textarea class="inp" id="f-sched" rows="6" placeholder="Bijv:&#10;Maandag: 08:00-09:30 Wiskunde, 09:45-11:15 Nederlands&#10;Dinsdag: 08:00-10:00 Biologie, 10:15-11:45 Engels&#10;..."></textarea></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">📝 Alle taken & deadlines</label><textarea class="inp" id="f-tasks" rows="5" placeholder="Bijv:&#10;- Wiskunde tentamen vrijdag (hoofdstuk 6 & 7)&#10;- Nederlands opstel woensdag inleveren&#10;- Biologie samenvatting maken&#10;- Boekverslag lezen"></textarea></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">🎯 Jouw doelen voor deze week</label><textarea class="inp" id="f-goals" rows="4" placeholder="Bijv:&#10;- Minimaal 7 halen voor wiskunde&#10;- Minder gestrest zijn&#10;- Elke dag bewegen&#10;- Bijtijds klaar zijn met huiswerk"></textarea></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:10px">⚡ Energieniveau (1-10) <span id="energy-val" style="color:var(--pl);font-weight:700;float:right">7</span></label><input type="range" class="energy-slider" id="f-energy" min="1" max="10" value="7" oninput="document.getElementById('energy-val').textContent=this.value"></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">😰 Meest stressvolle vak</label><input type="text" class="inp" id="f-stress" placeholder="Bijv: Wiskunde, Scheikunde..."></div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">🌟 Jouw leerstijl</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:10px;transition:.2s" id="ls-v"><input type="radio" name="leerstijl" value="visueel" style="accent-color:var(--p)"> 👁️ Visueel</label>
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:10px;transition:.2s"><input type="radio" name="leerstijl" value="lezen" style="accent-color:var(--p)"> 📖 Lezen</label>
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:10px;transition:.2s"><input type="radio" name="leerstijl" value="schrijven" style="accent-color:var(--p)"> ✍️ Schrijven</label>
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:10px;transition:.2s"><input type="radio" name="leerstijl" value="doen" style="accent-color:var(--p)"> 🤝 Doen</label>
+              </div>
+            </div>
+            <div><label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">💬 Extra wensen & bijzonderheden</label><textarea class="inp" id="f-prefs" rows="4" placeholder="Bijv: Ik ben 's ochtends het scherpst. Ik speel woensdag voetbal. Ik heb moeite met concentreren..."></textarea></div>
+            <div id="nokey-warn" style="background:rgba(255,179,71,.1);border:1px solid rgba(255,179,71,.3);border-radius:var(--r);padding:12px;font-size:13px;color:var(--o);display:none">⚠️ Geen API key ingesteld. <a href="settings.html">→ Instellingen</a></div>
+            <button type="submit" class="btn bp blg w100" id="pro-btn">
+              <span id="pro-btn-t">✨ Pro Plan Genereren</span>
+              <span id="pro-sp" style="display:none" class="spin"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- RESULT TAB -->
+    <div class="tab-pane" id="tab-result">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+        <h2 style="font-size:19px;font-weight:700">✨ Jouw Pro Plan</h2>
+        <div style="display:flex;gap:8px">
+          <button class="btn bg2 bsm" onclick="copyProPlan()">📋 Kopiëren</button>
+          <button class="btn bp bsm" onclick="saveProPlan()">💾 Opslaan</button>
+          <button class="btn bg2 bsm" onclick="setTab('form')">🔄 Nieuw plan</button>
+        </div>
+      </div>
+      <div class="pro-out" id="pro-out">
+        <div class="pro-empty"><div style="font-size:60px;margin-bottom:16px;opacity:.4">🤖</div><p style="font-size:15px;max-width:300px">Nog geen plan gegenereerd.<br>Ga naar <strong>Nieuw plan</strong> om te beginnen!</p></div>
+      </div>
+    </div>
+    <!-- HISTORY TAB -->
+    <div class="tab-pane" id="tab-history">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h2 style="font-size:19px;font-weight:700">📚 Opgeslagen plannen</h2>
+        <button class="btn bg2 bsm" onclick="clearHistory()">🗑️ Wissen</button>
+      </div>
+      <div id="hist-list"></div>
+    </div>
+  </main>
+</div>
+<script>
+'use strict';
+const store={get:(k)=>{try{return JSON.parse(localStorage.getItem('planr_'+k))}catch{return null}},set:(k,v)=>localStorage.setItem('planr_'+k,JSON.stringify(v)),del:(k)=>localStorage.removeItem('planr_'+k)};
+const NAMES={free:'Free',basis:'Basis ⭐',pro:'Pro ✦'};
+const Cfg={get(){return store.get('cfg')||{dark:true,sound:true}},theme(){document.documentElement.setAttribute('data-theme',this.get().dark?'dark':'light')}};
+const Snd={play(t){if(!Cfg.get().sound)return;try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);const c={ok:{f:880,d:.2,v:.12},err:{f:200,d:.2,v:.08},pop:{f:1200,d:.06,v:.08},click:{f:800,d:.08,v:.1}}[t]||{f:800,d:.08,v:.1};o.frequency.value=c.f;g.gain.setValueAtTime(c.v,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+c.d);o.start();o.stop(ctx.currentTime+c.d)}catch{}}};
+const Toast={_w:null,w(){if(!this._w){this._w=document.createElement('div');this._w.className='tw';document.body.appendChild(this._w)}return this._w},show(msg,type='info',dur=4500){const ic={success:'✅',error:'❌',info:'💡',warn:'⚠️'}[type]||'💡';const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span style="font-size:18px">${ic}</span><span style="font-size:14px;font-weight:500;color:var(--txt)">${msg}</span>`;this.w().appendChild(el);Snd.play(type==='success'?'ok':type==='error'?'err':'pop');setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},dur)},ok:(m,d)=>Toast.show(m,'success',d),err:(m,d)=>Toast.show(m,'error',d),info:(m,d)=>Toast.show(m,'info',d),warn:(m,d)=>Toast.show(m,'warn',d)};
+const Auth={user(){return store.get('sess')},profile(){const s=this.user();if(!s)return null;return(store.get('users')||[]).find(u=>u.id===s.id)||null},in(){return!!this.user()},out(){store.del('sess');location.href='login.html'}};
+const AI={key(){return store.get('ai_key')||''},async call(msgs){const k=this.key();if(!k)throw new Error('Geen API key. Voeg toe in Instellingen.');const r=await fetch('https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${k}`},body:JSON.stringify({model:'gpt-4o-mini',messages:msgs,temperature:.75,max_tokens:3000})});if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.error?.message||`Fout: ${r.status}`)}return(await r.json()).choices[0].message.content}};
+const mdC=(t)=>{if(!t)return'';return t.replace(/^### (.+)$/gm,'<h4 style="color:var(--pl);margin:10px 0 4px;font-size:14px">$1</h4>').replace(/^## (.+)$/gm,'<h3 style="color:var(--txt);margin:16px 0 8px;font-size:16px">$1</h3>').replace(/^# (.+)$/gm,'<h2 style="color:var(--txt);margin:20px 0 10px;font-size:20px">$1</h2>').replace(/\*\*(.+?)\*\*/g,'<strong style="color:var(--txt)">$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/^- (.+)$/gm,'<li style="margin:3px 0">$1</li>').replace(/(<li[^>]*>.*<\/li>\n?)+/g,m=>`<ul style="padding-left:18px;margin:6px 0">${m}</ul>`).replace(/\n\n/g,'</p><p style="margin:6px 0">').replace(/\n/g,'<br>')};
+
+function logout(){Auth.out()}
+
+function init(){
+  if(!Auth.in()){location.href='login.html';return}
+  const p=Auth.profile();
+  if(p?.plan!=='pro'){Toast.warn('Pro Planner is exclusief voor Pro-gebruikers!');setTimeout(()=>location.href='premium.html',2000);return}
+  document.getElementById('s-av').textContent=p.name[0].toUpperCase();
+  document.getElementById('s-name').textContent=p.name;
+  document.querySelector('.sb-nav a[href="planner.html"]').classList.add('active');
+  const btn=document.getElementById('mob-btn');const sb=document.getElementById('sidebar');
+  btn.addEventListener('click',()=>sb.classList.toggle('open'));
+  document.addEventListener('click',e=>{if(!sb.contains(e.target)&&!btn.contains(e.target))sb.classList.remove('open')});
+  document.getElementById('nokey-warn').style.display=AI.key()?'none':'block';
+  renderHistory();
+}
+
+let curTab='form';
+function setTab(t){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['form','result','history'][i]===t));
+  document.querySelectorAll('.tab-pane').forEach((p,i)=>p.classList.toggle('active',['tab-form','tab-result','tab-history'][i]==='tab-'+t));
+  curTab=t;Snd.play('click');
+}
+
+let proResult='';
+async function genProPlan(e){
+  e.preventDefault();
+  if(!AI.key()){Toast.err('Voeg een OpenAI API key toe in Instellingen!');return}
+  const sched=document.getElementById('f-sched').value.trim();const tasks=document.getElementById('f-tasks').value.trim();const goals=document.getElementById('f-goals').value.trim();
+  const energy=document.getElementById('f-energy').value;const stress=document.getElementById('f-stress').value.trim();const prefs=document.getElementById('f-prefs').value.trim();
+  const leerstijl=document.querySelector('input[name="leerstijl"]:checked')?.value||'niet opgegeven';
+  if(!sched&&!tasks){Toast.warn('Vul minimaal je rooster of taken in!');return}
+  const btn=document.getElementById('pro-btn');btn.disabled=true;document.getElementById('pro-btn-t').textContent='⏳ AI coaching...';document.getElementById('pro-sp').style.display='inline-block';
+  setTab('result');document.getElementById('pro-out').innerHTML='<div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
+  try{
+    const res=await AI.call([
+      {role:'system',content:`Je bent een premium AI-studiecoach voor scholieren. Je maakt uitgebreide, diepgaande en gepersonaliseerde plannen.
+Je analyseert: energieniveau, leerstijl, stressfactoren, studeerpatronen en geeft concrete aanbevelingen.
+Je plan bevat: een weekoverzicht, dagindeling, studeertips per vak, stressmanagement, welzijnscheck en motiverende afsluiting.
+Gebruik rijke markdown opmaak met headers, emoji's, bullet points. Wees warm, professioneel en realistisch.
+Vraag aan het einde of er specifieke onderdelen zijn waar de gebruiker meer diepgang op wil.`},
+      {role:'user',content:`Schoolrooster:\n${sched||'Niet opgegeven'}\n\nTaken & deadlines:\n${tasks||'Geen'}\n\nDoelen deze week:\n${goals||'Geen'}\n\nEnergieniveau: ${energy}/10\n\nMeest stressvolle vak: ${stress||'Niet opgegeven'}\n\nLeerstijl: ${leerstijl}\n\nExtra wensen:\n${prefs||'Geen'}`}
+    ]);
+    proResult=res;document.getElementById('pro-out').innerHTML=mdC(res);Snd.play('ok');Toast.ok('Pro plan klaar! ✨');
+    // Auto-save to history
+    const hist=store.get('pro_history')||[];
+    hist.unshift({text:res,date:new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}),preview:res.split('\n').find(l=>l.trim()&&!l.startsWith('#'))||'Plan gegenereerd'});
+    if(hist.length>10)hist.pop();store.set('pro_history',hist);
+    renderHistory();
+  }catch(err){document.getElementById('pro-out').innerHTML=`<div style="color:#FF4757;padding:20px">❌ Fout: ${err.message}<br><br><a href="settings.html">→ Controleer je API key in Instellingen</a></div>`;Toast.err(err.message)}
+  btn.disabled=false;document.getElementById('pro-btn-t').textContent='✨ Pro Plan Genereren';document.getElementById('pro-sp').style.display='none';
+}
+
+function saveProPlan(){if(!proResult)return;store.set('pro_current',proResult);Toast.ok('Plan opgeslagen!',2000);Snd.play('ok')}
+function copyProPlan(){if(!proResult)return;navigator.clipboard.writeText(proResult).then(()=>Toast.ok('Plan gekopieerd! 📋',2000))}
+
+function renderHistory(){
+  const hist=store.get('pro_history')||[];const list=document.getElementById('hist-list');
+  if(!hist.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt3)">📭 Nog geen plannen opgeslagen.</div>';return}
+  list.innerHTML=hist.map((h,i)=>`<div class="hist-item" onclick="loadHist(${i})"><div class="hist-d">📅 ${h.date}</div><div class="hist-p">${h.preview?.slice(0,80)||'Plan'}</div></div>`).join('');
+}
+function loadHist(i){const hist=store.get('pro_history')||[];if(!hist[i])return;proResult=hist[i].text;document.getElementById('pro-out').innerHTML=mdC(proResult);setTab('result');Toast.info('Plan geladen!',2000)}
+function clearHistory(){store.del('pro_history');renderHistory();Toast.info('Geschiedenis gewist.',2000)}
+
+document.addEventListener('DOMContentLoaded',()=>{Cfg.theme();init()});
+</script>
+</body>
+</html>
