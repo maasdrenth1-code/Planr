@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Planr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6C5CE7;--pl:#A78BFA;--pg:rgba(108,92,231,.25);--c:#00CEFF;--cg:rgba(0,206,255,.2);--g:#00D4AA;--gg:rgba(0,212,170,.2);--o:#FFB347;--og:rgba(255,179,71,.18);--red:#FF4757;--redg:rgba(255,71,87,.15);--bg:#070712;--bg2:#0D0D1E;--bg3:#13132A;--card:rgba(255,255,255,.04);--cardh:rgba(255,255,255,.08);--txt:#fff;--txt2:#B0BACE;--txt3:#5C6480;--b:rgba(255,255,255,.07);--ba:rgba(108,92,231,.4);--gp:linear-gradient(135deg,#6C5CE7,#A78BFA);--gc:linear-gradient(135deg,#00CEFF,#0096D6);--gr:linear-gradient(135deg,#FF4757,#FF6B81);--sh:0 8px 48px rgba(0,0,0,.55);--glow:0 0 30px rgba(108,92,231,.32);--r:16px;--rl:24px;--rxl:32px;--ease:cubic-bezier(.4,0,.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;transition:background .3s,color .3s;min-height:100vh}
+a{color:var(--pl);text-decoration:none;transition:.15s}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--cardh);border-radius:3px}
+.gr{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;outline:none;transition:.3s var(--ease);white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.bp{background:var(--gp);color:#fff;box-shadow:0 4px 20px var(--pg)}.bp:hover{transform:translateY(-2px)}
+.br{background:var(--redg);color:var(--red);border:1px solid rgba(255,71,87,.3)}.br:hover{background:rgba(255,71,87,.25);transform:translateY(-1px)}
+.bo{background:var(--og);color:var(--o);border:1px solid rgba(255,179,71,.3)}.bo:hover{background:rgba(255,179,71,.2);transform:translateY(-1px)}
+.bg2{background:var(--card);color:var(--txt);border:1px solid var(--b)}.bg2:hover{background:var(--cardh);border-color:var(--ba)}
+.bsm{padding:6px 12px;font-size:12px;border-radius:8px}
+.w100{width:100%}
+.inp{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:12px 16px;color:var(--txt);font-family:'Poppins',sans-serif;font-size:14px;width:100%;transition:.3s;outline:none}
+.inp:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--pg);background:var(--cardh)}.inp::placeholder{color:var(--txt3)}
+textarea.inp{resize:vertical;min-height:80px}
+/* TOAST */
+.tw{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);box-shadow:var(--sh);pointer-events:all;max-width:380px;animation:tIn .4s var(--ease) forwards}
+.toast.out{animation:tOut .3s ease forwards}
+.toast.success{border-left:3px solid var(--g)}.toast.error{border-left:3px solid var(--red)}.toast.info{border-left:3px solid var(--c)}.toast.warn{border-left:3px solid var(--o)}
+@keyframes tIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes tOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+/* MODAL */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;animation:fIn .3s ease}
+.modal{background:var(--bg2);border:1px solid var(--b);border-radius:var(--rxl);width:100%;max-width:500px;animation:mIn .4s var(--ease)}
+.mh{padding:28px 28px 0;display:flex;align-items:center;justify-content:space-between}
+.mt{font-size:20px;font-weight:700}
+.mc{width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--txt2);font-size:17px;transition:.15s;flex-shrink:0}
+.mc:hover{background:var(--cardh);color:var(--txt)}.mb{padding:22px 28px 28px}
+@keyframes fIn{from{opacity:0}to{opacity:1}}
+@keyframes mIn{from{transform:scale(.9) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+/* ACCESS DENIED */
+.access-denied{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:40px}
+/* LAYOUT */
+.admin-layout{display:flex;min-height:100vh}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;padding:20px 12px;z-index:100;overflow-y:auto}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:28px;text-decoration:none}
+.lb{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sb-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;padding:0 14px;margin-bottom:6px}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r);color:var(--txt2);font-size:14px;font-weight:500;transition:.15s;text-decoration:none}
+.sb-nav a:hover{background:var(--card);color:var(--txt)}.sb-nav a.active{background:rgba(255,71,87,.15);color:var(--red);font-weight:600}
+.sb-bot{margin-top:auto}
+.admin-badge{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,71,87,.1);border:1px solid rgba(255,71,87,.25);border-radius:var(--r);margin-bottom:10px;font-size:13px;font-weight:600;color:var(--red)}
+.sb-user{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);cursor:pointer;transition:.15s;text-decoration:none;margin-bottom:10px}
+.sb-user:hover{background:var(--cardh)}.av{width:36px;height:36px;border-radius:50%;background:var(--gr);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.main-c{flex:1;margin-left:260px;padding:32px;min-height:100vh}
+/* STATS */
+.stats-g{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-card{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:22px;transition:.3s}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--ba);box-shadow:var(--glow)}
+.stat-num{font-size:32px;font-weight:900;line-height:1;margin-bottom:4px}
+.stat-lbl{font-size:13px;color:var(--txt2)}
+/* PLAN DISTRIBUTION */
+.plan-dist{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:24px;margin-bottom:28px}
+.dist-bar-wrap{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+.dist-row{display:grid;grid-template-columns:100px 1fr 60px;gap:12px;align-items:center}
+.dist-label{font-size:13px;font-weight:600}
+.dist-track{height:12px;background:var(--bg3);border-radius:6px;overflow:hidden;position:relative}
+.dist-fill{height:100%;border-radius:6px;transition:width 1s var(--ease)}
+.dist-count{font-size:13px;font-weight:700;text-align:right}
+/* USER TABLE */
+.user-table-wrap{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;margin-bottom:28px}
+.table-head{display:grid;grid-template-columns:200px 1fr 120px 150px 180px;gap:0;background:var(--bg3);border-bottom:1px solid var(--b)}
+.th{padding:12px 16px;font-size:12px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px}
+.table-body{max-height:500px;overflow-y:auto}
+.user-row{display:grid;grid-template-columns:200px 1fr 120px 150px 180px;gap:0;border-bottom:1px solid var(--b);align-items:center;transition:.15s}
+.user-row:last-child{border-bottom:none}
+.user-row:hover{background:var(--cardh)}
+.user-row.warned{background:rgba(255,179,71,.04)}
+.user-row.warned-border{border-left:3px solid var(--o)}
+.td{padding:14px 16px;font-size:14px}
+.user-name-cell{display:flex;align-items:center;gap:10px}
+.user-mini-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.plan-badge{display:inline-flex;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.pb-free{background:var(--card);color:var(--txt3);border:1px solid var(--b)}
+.pb-basis{background:var(--pg);color:var(--pl);border:1px solid var(--ba)}
+.pb-pro{background:var(--og);color:var(--o);border:1px solid rgba(255,179,71,.3)}
+.action-cell{display:flex;gap:6px;align-items:center}
+.warn-badge{background:var(--og);color:var(--o);border:1px solid rgba(255,179,71,.3);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700}
+/* ACTIVITY LOG */
+.log-wrap{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:24px;margin-bottom:28px}
+.log-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--b);font-size:13px}
+.log-item:last-child{border-bottom:none}
+.log-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.log-time{font-size:11px;color:var(--txt3);margin-left:auto;white-space:nowrap}
+/* SEARCH */
+.search-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.filter-btn{padding:7px 16px;border-radius:var(--r);background:var(--card);border:1px solid var(--b);color:var(--txt2);font-size:13px;font-weight:600;cursor:pointer;transition:.15s;font-family:'Poppins',sans-serif}
+.filter-btn:hover,.filter-btn.active{background:var(--pg);color:var(--pl);border-color:var(--ba)}
+/* MOBILE */
+.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--b);cursor:pointer;font-size:18px;align-items:center;justify-content:center}
+@media(max-width:1100px){.table-head,.user-row{grid-template-columns:160px 1fr 100px 130px 160px}}
+@media(max-width:900px){.main-c{margin-left:0!important;padding:20px!important;padding-top:80px!important}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:var(--sh)}.mob-btn{display:flex!important}.stats-g{grid-template-columns:repeat(2,1fr)}.table-head,.user-row{grid-template-columns:1fr 80px 120px}}
+</style>
+</head>
+<body>
+<div class="tw" id="tw"></div>
+
+<!-- ACCESS DENIED (shown if not admin) -->
+<div class="access-denied" id="access-denied" style="display:none">
+  <div style="font-size:80px;margin-bottom:20px">🔒</div>
+  <h1 style="font-size:28px;font-weight:800;margin-bottom:12px">Geen toegang</h1>
+  <p style="font-size:16px;color:var(--txt2);max-width:400px;margin-bottom:28px">Deze pagina is alleen toegankelijk voor de Planr-beheerder. Je hebt onvoldoende rechten.</p>
+  <a href="dashboard.html" class="btn bp">← Terug naar Dashboard</a>
+</div>
+
+<!-- ADMIN PANEL (shown only if admin) -->
+<div id="admin-panel" style="display:none">
+  <button class="mob-btn" id="mob-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <div class="lb">📅</div>
+      <span style="font-size:20px;font-weight:800;color:var(--txt)"><span class="gr">Planr</span></span>
+    </div>
+    <div style="margin-bottom:26px">
+      <div class="sb-lbl">Admin Menu</div>
+      <ul class="sb-nav">
+        <li><a href="#" onclick="showSection('overview')" id="nav-overview" class="active">📊 Overzicht</a></li>
+        <li><a href="#" onclick="showSection('users')" id="nav-users">👥 Gebruikers</a></li>
+        <li><a href="#" onclick="showSection('subscriptions')" id="nav-subscriptions">💎 Abonnementen</a></li>
+        <li><a href="#" onclick="showSection('log')" id="nav-log">📋 Activiteitslog</a></li>
+      </ul>
+    </div>
+    <div style="margin-bottom:26px">
+      <div class="sb-lbl">Navigatie</div>
+      <ul class="sb-nav">
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+        <li><a href="planner.html">📅 Planner</a></li>
+      </ul>
+    </div>
+    <div class="sb-bot">
+      <div class="admin-badge">🔒 Admin toegang</div>
+      <div class="sb-user">
+        <div class="av">M</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--txt)">Maas Drenth</div>
+          <div style="font-size:11px;color:var(--red)">Beheerder</div>
+        </div>
+      </div>
+      <button class="btn bg2 bsm w100" onclick="S.d('sess');location.href='login.html'">🚪 Uitloggen</button>
+    </div>
+  </aside>
+
+  <div class="admin-layout">
+    <main class="main-c">
+
+      <!-- ===== OVERVIEW SECTION ===== -->
+      <div id="sec-overview">
+        <div style="margin-bottom:28px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+            <div style="background:var(--gr);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;color:#fff">🔒 BEHEERDER</div>
+            <div style="font-size:13px;color:var(--txt3)" id="admin-time"></div>
+          </div>
+          <h1 style="font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:-.5px;margin-bottom:4px">Admin <span class="gr">Dashboard</span></h1>
+          <p style="color:var(--txt2);font-size:15px">Welkom terug, Maas! Hier is het overzicht van Planr.</p>
+        </div>
+
+        <div class="stats-g" id="stats-grid">
+          <div class="stat-card"><div style="font-size:28px;margin-bottom:8px">👥</div><div class="stat-num gr" id="s-total">0</div><div class="stat-lbl">Totaal gebruikers</div></div>
+          <div class="stat-card"><div style="font-size:28px;margin-bottom:8px">📈</div><div class="stat-num" style="color:var(--g)" id="s-today">0</div><div class="stat-lbl">Vandaag aangemeld</div></div>
+          <div class="stat-card"><div style="font-size:28px;margin-bottom:8px">💎</div><div class="stat-num" style="color:var(--o)" id="s-paid">0</div><div class="stat-lbl">Betalende gebruikers</div></div>
+          <div class="stat-card"><div style="font-size:28px;margin-bottom:8px">⚠️</div><div class="stat-num" style="color:var(--red)" id="s-warned">0</div><div class="stat-lbl">Gewaarschuwd</div></div>
+        </div>
+
+        <!-- Plan Distribution -->
+        <div class="plan-dist">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div style="font-size:17px;font-weight:700">💎 Abonnementsverdeling</div>
+            <div style="font-size:13px;color:var(--txt3)" id="dist-total-lbl"></div>
+          </div>
+          <div style="font-size:13px;color:var(--txt2);margin-bottom:16px">Welk plan is het meest populair?</div>
+          <div class="dist-bar-wrap">
+            <div class="dist-row">
+              <div class="dist-label">🆓 Free</div>
+              <div class="dist-track"><div class="dist-fill" id="bar-free" style="width:0%;background:linear-gradient(90deg,var(--txt3),#8896A8)"></div></div>
+              <div class="dist-count" id="cnt-free" style="color:var(--txt3)">0</div>
+            </div>
+            <div class="dist-row">
+              <div class="dist-label" style="color:var(--pl)">⭐ Basis</div>
+              <div class="dist-track"><div class="dist-fill" id="bar-basis" style="width:0%;background:var(--gp)"></div></div>
+              <div class="dist-count" id="cnt-basis" style="color:var(--pl)">0</div>
+            </div>
+            <div class="dist-row">
+              <div class="dist-label" style="color:var(--o)">✦ Pro</div>
+              <div class="dist-track"><div class="dist-fill" id="bar-pro" style="width:0%;background:linear-gradient(90deg,var(--o),#FF9A3C)"></div></div>
+              <div class="dist-count" id="cnt-pro" style="color:var(--o)">0</div>
+            </div>
+          </div>
+          <div id="top-plan-msg" style="margin-top:16px;padding:12px 16px;background:var(--bg3);border-radius:var(--r);font-size:14px;font-weight:600;text-align:center"></div>
+        </div>
+
+        <!-- Recent Users -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="font-size:17px;font-weight:700">🆕 Recente aanmeldingen</div>
+          <button class="btn bg2 bsm" onclick="showSection('users')">Alle gebruikers →</button>
+        </div>
+        <div id="recent-list"></div>
+      </div>
+
+      <!-- ===== USERS SECTION ===== -->
+      <div id="sec-users" style="display:none">
+        <div style="margin-bottom:24px">
+          <h2 style="font-size:22px;font-weight:800;margin-bottom:6px">👥 Alle gebruikers</h2>
+          <p style="color:var(--txt2);font-size:14px">Bekijk, waarschuw of verwijder gebruikers. Wachtwoorden zijn nooit zichtbaar.</p>
+        </div>
+        <div class="search-row">
+          <input type="text" class="inp" id="search-inp" placeholder="🔍 Zoek op naam..." oninput="filterUsers()" style="max-width:280px;padding:9px 14px;font-size:14px">
+          <button class="filter-btn active" onclick="setFilter('all')" id="f-all">Alle</button>
+          <button class="filter-btn" onclick="setFilter('free')" id="f-free">🆓 Free</button>
+          <button class="filter-btn" onclick="setFilter('basis')" id="f-basis">⭐ Basis</button>
+          <button class="filter-btn" onclick="setFilter('pro')" id="f-pro">✦ Pro</button>
+          <button class="filter-btn" onclick="setFilter('warned')" id="f-warned">⚠️ Gewaarschuwd</button>
+          <div style="margin-left:auto;font-size:13px;color:var(--txt3)" id="user-count-lbl"></div>
+        </div>
+
+        <div class="user-table-wrap">
+          <div class="table-head">
+            <div class="th">Naam</div>
+            <div class="th">E-mail</div>
+            <div class="th">Plan</div>
+            <div class="th">Aangemeld</div>
+            <div class="th">Acties</div>
+          </div>
+          <div class="table-body" id="user-table-body">
+            <div style="padding:40px;text-align:center;color:var(--txt3)">Gebruikers laden...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SUBSCRIPTIONS SECTION ===== -->
+      <div id="sec-subscriptions" style="display:none">
+        <div style="margin-bottom:24px">
+          <h2 style="font-size:22px;font-weight:800;margin-bottom:6px">💎 Abonnementen analyse</h2>
+          <p style="color:var(--txt2);font-size:14px">Gedetailleerd overzicht van welke abonnementen het meest worden gebruikt.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px" id="plan-cards"></div>
+        <div class="plan-dist">
+          <div style="font-size:17px;font-weight:700;margin-bottom:16px">📈 Conversieratio</div>
+          <div id="conversion-data"></div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:24px;margin-top:20px">
+          <div style="font-size:17px;font-weight:700;margin-bottom:16px">🏆 Top inzichten</div>
+          <div id="insights-list"></div>
+        </div>
+      </div>
+
+      <!-- ===== LOG SECTION ===== -->
+      <div id="sec-log" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <div><h2 style="font-size:22px;font-weight:800;margin-bottom:6px">📋 Activiteitslog</h2><p style="color:var(--txt2);font-size:14px">Recente admin-acties en systeemgebeurtenissen.</p></div>
+          <button class="btn bg2 bsm" onclick="clearLog()">🗑️ Log wissen</button>
+        </div>
+        <div class="log-wrap"><div id="log-list"></div></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- WARN MODAL -->
+<div class="ov" id="warn-ov" style="display:none" onclick="closeWarn(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="mh"><div class="mt">⚠️ Gebruiker waarschuwen</div><button class="mc" onclick="closeWarn()">✕</button></div>
+    <div class="mb">
+      <div id="warn-user-info" style="background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:14px;margin-bottom:16px;font-size:14px"></div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">Waarschuwingsbericht</label>
+        <textarea class="inp" id="warn-msg" rows="4" placeholder="Bijv: Jouw gedrag op het platform is in strijd met onze voorwaarden. Bij herhaling volgt verwijdering van je account."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <button class="btn bo w100" onclick="setWarnTemplate('gedrag')">📋 Gedragswaarschuwing</button>
+        <button class="btn bo w100" onclick="setWarnTemplate('spam')">📋 Spam waarschuwing</button>
+      </div>
+      <div style="display:flex;gap:12px">
+        <button class="btn bg2 w100" onclick="closeWarn()">Annuleren</button>
+        <button class="btn bo w100" onclick="sendWarn()" style="background:var(--og);color:var(--o);border:1px solid rgba(255,179,71,.3)">⚠️ Waarschuwing sturen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="ov" id="del-ov" style="display:none" onclick="closeDelModal(event)">
+  <div class="modal" style="max-width:440px" onclick="event.stopPropagation()">
+    <div class="mh"><div class="mt" style="color:var(--red)">🗑️ Gebruiker verwijderen</div><button class="mc" onclick="closeDelModal()">✕</button></div>
+    <div class="mb">
+      <div id="del-user-info" style="background:var(--redg);border:1px solid rgba(255,71,87,.3);border-radius:var(--r);padding:14px;margin-bottom:16px;font-size:14px"></div>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:20px;font-size:13px;color:var(--txt2);line-height:1.7">
+        ⚠️ <strong style="color:var(--txt)">Let op:</strong> Dit kan niet ongedaan worden gemaakt. Al het data van deze gebruiker (plannen, taken, account) wordt permanent verwijderd.
+      </div>
+      <div style="display:flex;gap:12px">
+        <button class="btn bg2 w100" onclick="closeDelModal()">Annuleren</button>
+        <button class="btn br w100" onclick="confirmDelete()">🗑️ Definitief verwijderen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ====== STORE ====== */
+const S={g:(k)=>{try{return JSON.parse(localStorage.getItem('planr_'+k))}catch{return null}},s:(k,v)=>localStorage.setItem('planr_'+k,JSON.stringify(v)),d:(k)=>localStorage.removeItem('planr_'+k)};
+
+const ADMIN_EMAIL='maas.drenth@icloud.com';
+const PN={free:'Free',basis:'Basis',pro:'Pro'};
+const PC={free:'pb-free',basis:'pb-basis',pro:'pb-pro'};
+const AVCOLS=['linear-gradient(135deg,#6C5CE7,#A78BFA)','linear-gradient(135deg,#00CEFF,#0096D6)','linear-gradient(135deg,#FF6B9D,#FF3E6F)','linear-gradient(135deg,#00D4AA,#00A880)','linear-gradient(135deg,#FFB347,#FF9A3C)'];
+
+/* ====== TOAST ====== */
+const Toast={show(msg,type='info',dur=4000){const ic={success:'✅',error:'❌',info:'💡',warn:'⚠️'}[type]||'💡';const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span style="font-size:18px">${ic}</span><span style="font-size:14px;font-weight:500;color:var(--txt)">${msg}</span>`;document.getElementById('tw').appendChild(el);setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},dur)},ok:(m,d)=>Toast.show(m,'success',d),err:(m,d)=>Toast.show(m,'error',d),info:(m,d)=>Toast.show(m,'info',d),warn:(m,d)=>Toast.show(m,'warn',d)};
+
+/* ====== AUTH ====== */
+const sess=S.g('sess');
+const allUsers=()=>S.g('users')||[];
+const currentUser=()=>{if(!sess)return null;return allUsers().find(u=>u.id===sess.id)||null};
+
+/* ====== LOG ====== */
+function addLog(msg,type='info'){
+  const log=S.g('admin_log')||[];
+  log.unshift({msg,type,time:Date.now()});
+  if(log.length>100)log.pop();
+  S.s('admin_log',log);
+}
+
+/* ====== ACCESS CHECK ====== */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.documentElement.setAttribute('data-theme','dark');
+
+  const u=currentUser();
+  if(!u||u.email!==ADMIN_EMAIL){
+    document.getElementById('access-denied').style.display='flex';
+    return;
+  }
+  document.getElementById('admin-panel').style.display='block';
+  document.getElementById('admin-time').textContent=new Date().toLocaleString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  // Mobile sidebar
+  const btn=document.getElementById('mob-btn');const sb=document.getElementById('sidebar');
+  document.addEventListener('click',e=>{if(!sb.contains(e.target)&&!btn.contains(e.target))sb.classList.remove('open')});
+
+  loadOverview();
+});
+
+/* ====== SECTIONS ====== */
+const sections=['overview','users','subscriptions','log'];
+function showSection(name){
+  sections.forEach(s=>{
+    document.getElementById('sec-'+s).style.display=s===name?'block':'none';
+    document.getElementById('nav-'+s)?.classList.toggle('active',s===name);
+  });
+  document.querySelector('.sidebar')?.classList.remove('open');
+  if(name==='overview')loadOverview();
+  if(name==='users')loadUsers();
+  if(name==='subscriptions')loadSubscriptions();
+  if(name==='log')loadLog();
+}
+
+/* ====== OVERVIEW ====== */
+function loadOverview(){
+  const users=allUsers().filter(u=>u.email!==ADMIN_EMAIL);
+  const today=new Date().toDateString();
+  const todayUsers=users.filter(u=>new Date(u.at).toDateString()===today);
+  const paid=users.filter(u=>u.plan==='basis'||u.plan==='pro');
+  const warned=users.filter(u=>u.warned);
+
+  document.getElementById('s-total').textContent=users.length;
+  document.getElementById('s-today').textContent=todayUsers.length;
+  document.getElementById('s-paid').textContent=paid.length;
+  document.getElementById('s-warned').textContent=warned.length;
+
+  // Distribution
+  const free=users.filter(u=>!u.plan||u.plan==='free').length;
+  const basis=users.filter(u=>u.plan==='basis').length;
+  const pro=users.filter(u=>u.plan==='pro').length;
+  const total=Math.max(users.length,1);
+
+  document.getElementById('cnt-free').textContent=free;
+  document.getElementById('cnt-basis').textContent=basis;
+  document.getElementById('cnt-pro').textContent=pro;
+  document.getElementById('dist-total-lbl').textContent=`${users.length} gebruikers totaal`;
+
+  setTimeout(()=>{
+    document.getElementById('bar-free').style.width=Math.round((free/total)*100)+'%';
+    document.getElementById('bar-basis').style.width=Math.round((basis/total)*100)+'%';
+    document.getElementById('bar-pro').style.width=Math.round((pro/total)*100)+'%';
+  },100);
+
+  // Top plan message
+  const topPlanEl=document.getElementById('top-plan-msg');
+  const counts={free,basis,pro};
+  const topPlan=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  const planEmojis={free:'🆓',basis:'⭐',pro:'✦'};
+  const planColors={free:'var(--txt2)',basis:'var(--pl)',pro:'var(--o)'};
+  if(users.length===0){topPlanEl.innerHTML='<span style="color:var(--txt3)">Nog geen gebruikers aangemeld.</span>'}
+  else{topPlanEl.innerHTML=`${planEmojis[topPlan[0]]} <span style="color:${planColors[topPlan[0]]}"><strong>${PN[topPlan[0]]}</strong></span> is het meest gekozen plan — <strong>${topPlan[1]} gebruikers</strong> (${Math.round((topPlan[1]/total)*100)}%)`}
+
+  // Recent users
+  const recent=document.getElementById('recent-list');
+  const sorted=[...users].sort((a,b)=>b.at-a.at).slice(0,5);
+  if(!sorted.length){recent.innerHTML='<div style="padding:24px;text-align:center;color:var(--txt3);background:var(--card);border:1px solid var(--b);border-radius:var(--rl)">Nog geen gebruikers aangemeld.</div>';return}
+  recent.innerHTML=sorted.map((u,i)=>`
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);margin-bottom:8px;transition:.15s" onmouseover="this.style.background='var(--cardh)'" onmouseout="this.style.background='var(--card)'">
+      <div style="width:38px;height:38px;border-radius:50%;background:${AVCOLS[i%AVCOLS.length]};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;flex-shrink:0">${u.name[0].toUpperCase()}</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:600">${escHtml(u.name)}</div><div style="font-size:12px;color:var(--txt3)">${maskEmail(u.email)}</div></div>
+      <span class="plan-badge ${PC[u.plan||'free']}">${planEmojis[u.plan||'free']} ${PN[u.plan||'free']}</span>
+      <div style="font-size:12px;color:var(--txt3);text-align:right">${timeSince(u.at)}</div>
+    </div>
+  `).join('');
+}
+
+/* ====== USERS ====== */
+let currentFilter='all';
+function setFilter(f){
+  currentFilter=f;
+  ['all','free','basis','pro','warned'].forEach(x=>document.getElementById('f-'+x)?.classList.toggle('active',x===f));
+  renderUsers();
+}
+function filterUsers(){renderUsers()}
+function loadUsers(){renderUsers()}
+function renderUsers(){
+  const search=(document.getElementById('search-inp')?.value||'').toLowerCase();
+  const allU=allUsers().filter(u=>u.email!==ADMIN_EMAIL);
+  let filtered=allU;
+  if(currentFilter!=='all'){
+    if(currentFilter==='warned')filtered=allU.filter(u=>u.warned);
+    else filtered=allU.filter(u=>(u.plan||'free')===currentFilter);
+  }
+  if(search)filtered=filtered.filter(u=>u.name.toLowerCase().includes(search)||u.email.toLowerCase().includes(search));
+  filtered.sort((a,b)=>b.at-a.at);
+  const lbl=document.getElementById('user-count-lbl');
+  if(lbl)lbl.textContent=`${filtered.length} van ${allU.length} gebruikers`;
+  const body=document.getElementById('user-table-body');
+  if(!body)return;
+  if(!filtered.length){body.innerHTML='<div style="padding:48px;text-align:center;color:var(--txt3)">Geen gebruikers gevonden.</div>';return}
+  const planEmojis={free:'🆓',basis:'⭐',pro:'✦'};
+  body.innerHTML=filtered.map((u,i)=>`
+    <div class="user-row ${u.warned?'warned-border':''}" id="row-${u.id}">
+      <div class="td">
+        <div class="user-name-cell">
+          <div class="user-mini-av" style="background:${AVCOLS[i%AVCOLS.length]}">${u.name[0].toUpperCase()}</div>
+          <div>
+            <div style="font-size:14px;font-weight:600">${escHtml(u.name)}</div>
+            ${u.warned?`<div class="warn-badge">⚠️ Gewaarschuwd</div>`:''}
+          </div>
+        </div>
+      </div>
+      <div class="td" style="color:var(--txt2);font-size:13px">${maskEmail(u.email)}</div>
+      <div class="td"><span class="plan-badge ${PC[u.plan||'free']}">${planEmojis[u.plan||'free']} ${PN[u.plan||'free']}</span></div>
+      <div class="td" style="font-size:13px;color:var(--txt2)">${new Date(u.at).toLocaleDateString('nl-NL',{day:'numeric',month:'short',year:'numeric'})}</div>
+      <div class="td"><div class="action-cell">
+        <button class="btn bo bsm" onclick="openWarn('${u.id}')" title="Waarschuwen">⚠️ Warn</button>
+        <button class="btn br bsm" onclick="openDel('${u.id}')" title="Verwijderen">🗑️</button>
+      </div></div>
+    </div>
+  `).join('');
+}
+
+/* ====== SUBSCRIPTIONS ====== */
+function loadSubscriptions(){
+  const users=allUsers().filter(u=>u.email!==ADMIN_EMAIL);
+  const free=users.filter(u=>!u.plan||u.plan==='free').length;
+  const basis=users.filter(u=>u.plan==='basis').length;
+  const pro=users.filter(u=>u.plan==='pro').length;
+  const total=Math.max(users.length,1);
+
+  const cards=[
+    {name:'Free',emoji:'🆓',count:free,pct:Math.round((free/total)*100),color:'var(--txt2)',bg:'var(--card)',desc:'Gratis plan • €0/mnd',features:'3 dagplannen/week'},
+    {name:'Basis',emoji:'⭐',count:basis,pct:Math.round((basis/total)*100),color:'var(--pl)',bg:'var(--pg)',desc:'Betaald plan • €4,99/mnd',features:'10 dagplannen/week'},
+    {name:'Pro',emoji:'✦',count:pro,pct:Math.round((pro/total)*100),color:'var(--o)',bg:'var(--og)',desc:'Premium plan • €12,99/mnd',features:'Onbeperkt alles'},
+  ];
+
+  document.getElementById('plan-cards').innerHTML=cards.map(c=>`
+    <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:24px;text-align:center;transition:.3s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+      <div style="font-size:40px;margin-bottom:12px">${c.emoji}</div>
+      <div style="font-size:15px;font-weight:700;color:${c.color};margin-bottom:4px">${c.name}</div>
+      <div style="font-size:36px;font-weight:900;color:${c.color};margin-bottom:4px">${c.count}</div>
+      <div style="font-size:13px;color:var(--txt3);margin-bottom:8px">gebruikers (${c.pct}%)</div>
+      <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin:12px 0"><div style="height:100%;border-radius:3px;background:${c.color==='var(--txt2)'?'linear-gradient(90deg,var(--txt3),#8896A8)':c.color==='var(--pl)'?'var(--gp)':'linear-gradient(90deg,var(--o),#FF9A3C)'};width:${c.pct}%;transition:width 1s"></div></div>
+      <div style="font-size:12px;color:var(--txt3)">${c.desc}</div>
+    </div>
+  `).join('');
+
+  // Conversion data
+  const paid=basis+pro;
+  const convRate=total>0?Math.round((paid/total)*100):0;
+  document.getElementById('conversion-data').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+      <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:18px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--g)">${convRate}%</div>
+        <div style="font-size:13px;color:var(--txt2)">Conversie (free→betaald)</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:18px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--pl)">€${(basis*4.99+pro*12.99).toFixed(2)}</div>
+        <div style="font-size:13px;color:var(--txt2)">Geschatte MRR</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:18px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--o)">€${((basis*4.99+pro*12.99)*12).toFixed(0)}</div>
+        <div style="font-size:13px;color:var(--txt2)">Geschatte ARR</div>
+      </div>
+    </div>
+  `;
+
+  // Insights
+  const top=free>=basis&&free>=pro?'Free':basis>=pro?'Basis':'Pro';
+  const insightsEl=document.getElementById('insights-list');
+  const insights=[
+    {ic:'🏆',txt:`<strong>${top}</strong> is het meest gekozen plan (${top==='Free'?free:top==='Basis'?basis:pro} gebruikers)`,color:'var(--g)'},
+    {ic:'💰',txt:`Maandelijkse inkomsten (MRR): <strong style="color:var(--pl)">€${(basis*4.99+pro*12.99).toFixed(2)}</strong>`,color:'var(--pl)'},
+    {ic:'📈',txt:`Conversieratio: <strong>${convRate}%</strong> van free naar betaald abonnement`,color:'var(--c)'},
+    {ic:'👥',txt:`Totaal <strong>${users.length}</strong> gebruikers, waarvan <strong>${paid}</strong> betalend`,color:'var(--o)'},
+    {ic:'✦',txt:`Pro-plan genereert <strong>€${(pro*12.99).toFixed(2)}/mnd</strong> van ${pro} gebruikers`,color:'var(--o)'},
+  ];
+  insightsEl.innerHTML=insights.map(ins=>`<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--b);font-size:14px;color:var(--txt2)"><span style="font-size:22px;flex-shrink:0">${ins.ic}</span><span>${ins.txt}</span></div>`).join('');
+}
+
+/* ====== LOG ====== */
+function loadLog(){
+  const log=S.g('admin_log')||[];
+  const list=document.getElementById('log-list');
+  if(!log.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt3)">📭 Geen recente activiteit.</div>';return}
+  const typeConfig={warn:{ic:'⚠️',bg:'var(--og)',lbl:'Waarschuwing'},delete:{ic:'🗑️',bg:'var(--redg)',lbl:'Verwijderd'},login:{ic:'🔑',bg:'var(--pg)',lbl:'Login'},info:{ic:'💡',bg:'var(--cg)',lbl:'Info'}};
+  list.innerHTML=log.map(l=>{const tc=typeConfig[l.type]||typeConfig.info;const t=new Date(l.time);return`<div class="log-item"><div class="log-ic" style="background:${tc.bg}">${tc.ic}</div><div style="flex:1"><div style="font-size:14px;color:var(--txt)">${l.msg}</div><div style="font-size:11px;color:var(--txt3)">${tc.lbl}</div></div><div class="log-time">${t.toLocaleString('nl-NL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div></div>`}).join('');
+}
+function clearLog(){if(!confirm('Weet je zeker dat je de log wilt wissen?'))return;S.d('admin_log');loadLog();Toast.info('Log gewist.',2000)}
+
+/* ====== WARN MODAL ====== */
+let warnUserId=null;
+function openWarn(id){
+  warnUserId=id;
+  const u=allUsers().find(u=>u.id===id);
+  if(!u)return;
+  document.getElementById('warn-user-info').innerHTML=`<strong>${escHtml(u.name)}</strong> — ${maskEmail(u.email)} — <span class="plan-badge ${PC[u.plan||'free']}">${PN[u.plan||'free']}</span>`;
+  document.getElementById('warn-msg').value=u.warningMsg||'';
+  document.getElementById('warn-ov').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeWarn(e){if(e&&e.target!==document.getElementById('warn-ov'))return;document.getElementById('warn-ov').style.display='none';document.body.style.overflow=''}
+function setWarnTemplate(type){
+  const templates={
+    gedrag:'Jouw gedrag op het Planr-platform is in strijd met onze gebruiksvoorwaarden. Wij verzoeken je dit direct te staken. Bij herhaling wordt jouw account permanent verwijderd.',
+    spam:'Er is geconstateerd dat je het platform misbruikt. Dit is een formele waarschuwing. Verdere overtreding leidt tot verwijdering van jouw account.'
+  };
+  document.getElementById('warn-msg').value=templates[type]||'';
+}
+function sendWarn(){
+  const msg=document.getElementById('warn-msg').value.trim();
+  if(!msg){Toast.warn('Vul een waarschuwingsbericht in!');return}
+  const users=allUsers();const idx=users.findIndex(u=>u.id===warnUserId);
+  if(idx<0){Toast.err('Gebruiker niet gevonden.');return}
+  users[idx].warned=true;users[idx].warningMsg=msg;users[idx].warnedAt=Date.now();
+  S.s('users',users);
+  addLog(`Waarschuwing gestuurd aan ${users[idx].name}(${maskEmail(users[idx].email)})`)  ;
+  Toast.ok(`Gebruiker ${users[idx].name} is gewaarschuwd!`);
+  closeWarn();loadOverview();renderUsers();
+  document.getElementById('s-warned').textContent=users.filter(u=>u.warned&&u.email!==ADMIN_EMAIL).length;
+}
+
+/* ====== DELETE MODAL ====== */
+let delUserId=null;
+function openDel(id){
+  delUserId=id;
+  const u=allUsers().find(u=>u.id===id);
+  if(!u)return;
+  document.getElementById('del-user-info').innerHTML=`Je staat op het punt om <strong>${escHtml(u.name)}</strong> (${maskEmail(u.email)}) permanent te verwijderen.`;
+  document.getElementById('del-ov').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeDelModal(e){if(e&&e.target!==document.getElementById('del-ov'))return;document.getElementById('del-ov').style.display='none';document.body.style.overflow=''}
+function confirmDelete(){
+  const users=allUsers();const u=users.find(u=>u.id===delUserId);
+  if(!u){Toast.err('Gebruiker niet gevonden.');return}
+  const name=u.name,email=maskEmail(u.email);
+  S.s('users',users.filter(u=>u.id!==delUserId));
+  // If current session was deleted, log out (shouldn't happen for admin)
+  addLog(`Gebruiker verwijderd: ${name} (${email})`,'delete');
+  Toast.ok(`${name} is verwijderd van het platform.`);
+  closeDelModal();loadOverview();renderUsers();loadSubscriptions();
+}
+
+/* ====== HELPERS ====== */
+function maskEmail(email){if(!email)return'';const[u,d]=email.split('@');if(!d)return email;const masked=u.length>2?u[0]+'*'.repeat(u.length-2)+u[u.length-1]:u[0]+'*';return`${masked}@${d}`}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function timeSince(ts){const s=Math.floor((Date.now()-ts)/1000);if(s<60)return'Zojuist';if(s<3600)return`${Math.floor(s/60)} min geleden`;if(s<86400)return`${Math.floor(s/3600)} uur geleden`;return`${Math.floor(s/86400)} dag(en) geleden`}
+</script>
+</body>
+</html>

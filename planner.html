@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Planner — Planr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#6C5CE7;--pl:#A78BFA;--pg:rgba(108,92,231,.25);--c:#00CEFF;--cg:rgba(0,206,255,.2);--g:#00D4AA;--gg:rgba(0,212,170,.2);--pk:#FF6B9D;--o:#FFB347;--og:rgba(255,179,71,.18);--bg:#070712;--bg2:#0D0D1E;--bg3:#13132A;--card:rgba(255,255,255,.04);--cardh:rgba(255,255,255,.08);--txt:#fff;--txt2:#B0BACE;--txt3:#5C6480;--b:rgba(255,255,255,.07);--ba:rgba(108,92,231,.4);--gp:linear-gradient(135deg,#6C5CE7,#A78BFA);--gc:linear-gradient(135deg,#00CEFF,#0096D6);--sh:0 8px 48px rgba(0,0,0,.55);--glow:0 0 30px rgba(108,92,231,.32);--r:16px;--rl:24px;--rxl:32px;--ease:cubic-bezier(.4,0,.2,1)}
+[data-theme=light]{--bg:#F5F5FF;--bg2:#fff;--bg3:#EDEDFB;--card:rgba(108,92,231,.05);--cardh:rgba(108,92,231,.09);--txt:#1A1A2E;--txt2:#44446A;--txt3:#9090B0;--b:rgba(108,92,231,.1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;transition:background .3s,color .3s}
+a{color:var(--pl);text-decoration:none;transition:.15s}a:hover{color:var(--c)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--cardh);border-radius:3px}
+.gr{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border:none;outline:none;transition:.3s var(--ease);white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.bp{background:var(--gp);color:#fff;box-shadow:0 4px 24px var(--pg)}.bp:hover{transform:translateY(-2px);box-shadow:0 8px 36px var(--pg)}
+.bc{background:var(--gc);color:#fff}.bc:hover{transform:translateY(-2px)}
+.bg2{background:var(--card);color:var(--txt);border:1px solid var(--b)}.bg2:hover{background:var(--cardh);border-color:var(--ba)}
+.bsm{padding:8px 14px;font-size:13px;border-radius:8px}.blg{padding:14px 28px;font-size:16px;border-radius:var(--rl)}
+.w100{width:100%}
+.inp{background:var(--card);border:1.5px solid var(--b);border-radius:var(--r);padding:13px 18px;color:var(--txt);font-family:'Poppins',sans-serif;font-size:15px;width:100%;transition:.3s;outline:none}
+.inp:focus{border-color:var(--pl);box-shadow:0 0 0 3px var(--pg);background:var(--cardh)}.inp::placeholder{color:var(--txt3)}
+textarea.inp{resize:vertical;min-height:100px}
+.tw{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);box-shadow:var(--sh);pointer-events:all;max-width:380px;animation:tIn .4s var(--ease) forwards}
+.toast.out{animation:tOut .3s ease forwards}
+.toast.success{border-left:3px solid var(--g)}.toast.error{border-left:3px solid #FF4757}.toast.info{border-left:3px solid var(--c)}.toast.warn{border-left:3px solid var(--o)}
+@keyframes tIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes tOut{from{transform:translateX(0);opacity:1}to{transform:translateX(120%);opacity:0}}
+.spin{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block;vertical-align:middle}@keyframes sp{to{transform:rotate(360deg)}}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--bg2);border-right:1px solid var(--b);display:flex;flex-direction:column;padding:20px 12px;z-index:100;overflow-y:auto;transition:.3s}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:28px;text-decoration:none}
+.lb{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.sb-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;padding:0 14px;margin-bottom:6px}
+.sb-nav{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sb-nav a{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r);color:var(--txt2);font-size:14px;font-weight:500;transition:.15s;text-decoration:none}
+.sb-nav a:hover{background:var(--card);color:var(--txt)}.sb-nav a.active{background:var(--pg);color:var(--pl);font-weight:600}
+.sb-bot{margin-top:auto}
+.sb-user{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);cursor:pointer;transition:.15s;text-decoration:none;margin-bottom:10px}
+.sb-user:hover{background:var(--cardh)}.av{width:36px;height:36px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.app-l{display:flex;min-height:100vh}.main-c{flex:1;margin-left:260px;padding:32px;min-height:100vh}
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:4px;margin-bottom:22px}
+.tab-btn{flex:1;padding:10px;border-radius:12px;background:none;border:none;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:var(--txt2);transition:.2s}
+.tab-btn.active{background:var(--gp);color:#fff;box-shadow:0 2px 12px var(--pg)}
+.tab-p{display:none}.tab-p.active{display:block;animation:tabIn .3s var(--ease)}
+@keyframes tabIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.energy-sl{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(to right,var(--g),var(--c),var(--p));outline:none;cursor:pointer}
+.energy-sl::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gp);border:3px solid var(--bg2);cursor:pointer;box-shadow:0 2px 8px var(--pg)}
+.ls-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ls-opt label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:10px 12px;transition:.2s}
+.ls-opt label:hover{border-color:var(--pl)}.ls-opt input[type=radio]{accent-color:var(--p)}
+.ls-opt input:checked+span{color:var(--pl)}
+/* RESULT */
+.pro-out{background:var(--bg3);border:1px solid var(--b);border-radius:var(--rl);padding:24px;min-height:300px}
+.tl-block{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);margin:5px 0;transition:.2s}
+.tl-block:hover{background:var(--cardh)}
+.tl-block.school{border-left:3px solid var(--p)}.tl-block.task{border-left:3px solid var(--c)}.tl-block.meal{border-left:3px solid var(--g)}.tl-block.break{border-left:3px solid var(--o)}.tl-block.routine{border-left:3px solid var(--txt3)}.tl-block.sleep{border-left:3px solid var(--pk)}.tl-block.relax{border-left:3px solid var(--g)}
+.tl-time{font-size:13px;font-weight:700;color:var(--pl);min-width:130px;flex-shrink:0}.tl-ic{font-size:20px;flex-shrink:0}.tl-lbl{font-size:14px;color:var(--txt)}
+.plan-sh{font-size:16px;font-weight:700;color:var(--pl);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--b)}
+.plan-sr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--b);font-size:14px}.plan-sr:last-child{border-bottom:none}
+.plan-ti{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:13px;color:var(--txt2)}
+/* HISTORY */
+.hist-item{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:14px;margin-bottom:8px;cursor:pointer;transition:.2s}
+.hist-item:hover{background:var(--cardh);border-color:var(--ba)}
+/* INSIGHT CARDS */
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.insight-card{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:16px;text-align:center}
+/* MOBILE */
+.mob-btn{display:none;position:fixed;top:16px;left:16px;z-index:200;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--b);cursor:pointer;font-size:18px;align-items:center;justify-content:center}
+@media(max-width:900px){.main-c{margin-left:0!important;padding:20px!important;padding-top:80px!important}.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:var(--sh)}.mob-btn{display:flex!important}.form-grid{grid-template-columns:1fr}.insight-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="tw" id="tw"></div>
+<button class="mob-btn" id="mob-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sb-logo"><div class="lb">📅</div><span style="font-size:20px;font-weight:800;color:var(--txt)"><span class="gr">Planr</span></span></a>
+  <div style="margin-bottom:26px">
+    <div class="sb-lbl">Menu</div>
+    <ul class="sb-nav">
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="planner.html" class="active">📅 Pro Planner</a></li>
+      <li><a href="premium.html">💎 Abonnementen</a></li>
+      <li><a href="settings.html">⚙️ Instellingen</a></li>
+    </ul>
+  </div>
+  <div class="sb-bot">
+    <a href="settings.html" class="sb-user"><div class="av" id="sb-av">?</div><div><div style="font-size:13px;font-weight:600;color:var(--txt)" id="sb-name">Laden...</div><div style="font-size:11px;color:var(--txt3)" id="sb-plan">Free</div></div></a>
+    <button class="btn bg2 bsm w100" onclick="Auth.out()">🚪 Uitloggen</button>
+  </div>
+</aside>
+
+<div class="app-l">
+  <main class="main-c">
+    <div style="margin-bottom:26px">
+      <div style="background:linear-gradient(135deg,#FFB347,#FF6B9D);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;text-transform:uppercase;display:inline-block;margin-bottom:8px">✦ Pro Planner</div>
+      <h1 style="font-size:clamp(22px,3vw,34px);font-weight:900;letter-spacing:-.5px;margin-bottom:6px">Planr <span class="gr">Pro Planner</span></h1>
+      <p style="color:var(--txt2);font-size:15px">Onze AI analyseert jouw volledige situatie en maakt een diepgaand, gepersonaliseerd plan.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="setTab('form')">✨ Nieuw plan</button>
+      <button class="tab-btn" onclick="setTab('result')">📋 Resultaat</button>
+      <button class="tab-btn" onclick="setTab('hist')">📚 Geschiedenis</button>
+    </div>
+
+    <!-- FORM TAB -->
+    <div class="tab-p active" id="tab-form">
+      <div style="background:linear-gradient(135deg,rgba(108,92,231,.12),rgba(0,206,255,.06));border:1px solid var(--ba);border-radius:var(--rxl);padding:26px;margin-bottom:22px">
+        <h2 style="font-size:18px;font-weight:700;margin-bottom:6px">🤖 Vertel mij alles</h2>
+        <p style="font-size:14px;color:var(--txt2)">Hoe meer je invult, hoe slimmer en persoonlijker je plan! De AI analyseert je energie, leerstijl en stress om het optimale rooster te maken.</p>
+      </div>
+
+      <form onsubmit="generateProPlan(event)">
+        <div class="form-grid">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">📚 Schoolrooster</label>
+              <textarea class="inp" id="pl-sched" rows="7" placeholder="Bijv:&#10;08:00 - 09:30 Wiskunde&#10;09:30 - 11:00 Nederlands&#10;11:15 - 12:45 Biologie&#10;12:45 - 13:30 Lunch&#10;13:30 - 15:00 Engels"></textarea>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">📝 Taken & deadlines</label>
+              <textarea class="inp" id="pl-tasks" rows="6" placeholder="Bijv:&#10;- Wiskunde tentamen vrijdag (H6 & H7)&#10;- Nederlands opstel woensdag inleveren&#10;- Biologie samenvatting H4 maken&#10;- Sporten (hardlopen 30 min)&#10;- Boekverslag lezen (hfst 3)"></textarea>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">🎯 Jouw doelen voor deze week</label>
+              <textarea class="inp" id="pl-goals" rows="4" placeholder="Bijv:&#10;- Minimaal 7 halen voor wiskunde&#10;- Minder gestrest zijn&#10;- Elke dag 30 min bewegen&#10;- Bijtijds klaar zijn met huiswerk"></textarea>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:10px">⚡ Energieniveau nu: <span id="pl-e-v" style="color:var(--pl);font-weight:700">7</span>/10</label>
+              <input type="range" class="energy-sl" id="pl-energy" min="1" max="10" value="7" oninput="updateEnergy(this.value)">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);margin-top:4px"><span>💤 Uitgeput</span><span>⚡ Super energiek</span></div>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">😰 Meest stressvolle vak</label>
+              <input type="text" class="inp" id="pl-stress" placeholder="Bijv: Wiskunde, Scheikunde...">
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:8px">🧠 Jouw leerstijl</label>
+              <div class="ls-grid">
+                <div class="ls-opt"><label><input type="radio" name="ls" value="visueel"> <span>👁️ Visueel</span></label></div>
+                <div class="ls-opt"><label><input type="radio" name="ls" value="lezen"> <span>📖 Lezen</span></label></div>
+                <div class="ls-opt"><label><input type="radio" name="ls" value="schrijven"> <span>✍️ Schrijven</span></label></div>
+                <div class="ls-opt"><label><input type="radio" name="ls" value="doen"> <span>🤝 Doen</span></label></div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">📅 Plan type</label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div class="ls-opt"><label><input type="radio" name="plan-type" value="day" checked> <span>☀️ Dagplan</span></label></div>
+                <div class="ls-opt"><label><input type="radio" name="plan-type" value="week"> <span>📅 Weekplan</span></label></div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:6px">💬 Extra wensen & bijzonderheden</label>
+              <textarea class="inp" id="pl-prefs" rows="4" placeholder="Bijv: 's ochtends het scherpst, woensdag voetbal om 17:00, moe van gisteren..."></textarea>
+            </div>
+            <button type="submit" class="btn bp blg w100" id="pl-btn">
+              <span id="pl-btn-t">✨ Pro Plan Genereren</span>
+              <span id="pl-sp" style="display:none" class="spin"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- RESULT TAB -->
+    <div class="tab-p" id="tab-result">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <h2 style="font-size:18px;font-weight:700">✨ Jouw Pro Plan</h2>
+        <div style="display:flex;gap:8px">
+          <button class="btn bg2 bsm" onclick="copyPro()">📋 Kopiëren</button>
+          <button class="btn bp bsm" onclick="savePro()">💾 Opslaan</button>
+          <button class="btn bg2 bsm" onclick="setTab('form')">🔄 Nieuw plan</button>
+        </div>
+      </div>
+      <div class="pro-out" id="pl-out">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px;color:var(--txt2);text-align:center">
+          <div style="font-size:60px;margin-bottom:16px;opacity:.4">🤖</div>
+          <p style="font-size:15px;max-width:300px">Nog geen plan gegenereerd.<br>Ga naar <strong>Nieuw plan</strong> en laat de AI aan het werk!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY TAB -->
+    <div class="tab-p" id="tab-hist">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h2 style="font-size:18px;font-weight:700">📚 Opgeslagen plannen</h2>
+        <button class="btn bg2 bsm" onclick="clearHist()">🗑️ Alles wissen</button>
+      </div>
+      <div id="hist-list"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+const S={g:(k)=>{try{return JSON.parse(localStorage.getItem('planr_'+k))}catch{return null}},s:(k,v)=>localStorage.setItem('planr_'+k,JSON.stringify(v)),d:(k)=>localStorage.removeItem('planr_'+k)};
+const ADMIN_EMAIL='maas.drenth@icloud.com';
+const LIM={free:{day:3,week:0},basis:{day:10,week:2},pro:{day:Infinity,week:Infinity}};
+const PN={free:'Free',basis:'Basis ⭐',pro:'Pro ✦'};
+const Auth={user(){return S.g('sess')},profile(){const s=this.user();if(!s)return null;return(S.g('users')||[]).find(u=>u.id===s.id)||null},isAdmin(){return this.profile()?.email===ADMIN_EMAIL},effectivePlan(){const p=this.profile();if(!p)return'free';return this.isAdmin()?'pro':(p.plan||'free')},in(){return!!this.user()},req(){if(!this.in()){location.href='login.html';return false}return true},out(){S.d('sess');location.href='login.html'}};
+const Cfg={g(){return S.g('cfg')||{dark:true,sound:true}},theme(){document.documentElement.setAttribute('data-theme',this.g().dark?'dark':'light')}};
+const Snd={play(t){if(!Cfg.g().sound)return;try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);const c={click:{f:800,d:.08,v:.1},ok:{f:880,d:.2,v:.12},err:{f:200,d:.2,v:.08},pop:{f:1200,d:.06,v:.08}}[t]||{f:800,d:.08,v:.1};o.frequency.value=c.f;g.gain.setValueAtTime(c.v,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+c.d);o.start();o.stop(ctx.currentTime+c.d)}catch{}}};
+const Toast={show(msg,type='info',dur=4000){const ic={success:'✅',error:'❌',info:'💡',warn:'⚠️'}[type]||'💡';const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span style="font-size:18px">${ic}</span><span style="font-size:14px;font-weight:500;color:var(--txt)">${msg}</span>`;document.getElementById('tw').appendChild(el);Snd.play(type==='success'?'ok':type==='error'?'err':'pop');setTimeout(()=>{el.classList.add('out');setTimeout(()=>el.remove(),300)},dur)},ok:(m,d)=>Toast.show(m,'success',d),err:(m,d)=>Toast.show(m,'error',d),info:(m,d)=>Toast.show(m,'info',d),warn:(m,d)=>Toast.show(m,'warn',d)};
+
+/* ====== PLANR AI ENGINE ====== */
+const PlanrAI={
+  toMin(s){if(!s)return null;s=String(s).trim().replace(',',':').replace('.',':');const p=s.split(':');return parseInt(p[0])*60+parseInt(p[1]||0)},
+  toStr(m){return`${String(Math.floor((m/60)%24)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},
+  parseBlocks(text){if(!text?.trim())return[];const blocks=[];text.split('\n').forEach(line=>{line=line.trim();if(!line)return;const m=line.match(/(\d{1,2})[:.](\d{2})?\s*[-–—tot]+\s*(\d{1,2})[:.](\d{2})?/i);if(!m)return;const s=parseInt(m[1])*60+parseInt(m[2]||0);const e=parseInt(m[3])*60+parseInt(m[4]||0);if(s<24*60&&e<24*60&&e>s){const lbl=line.replace(m[0],'').replace(/^[:\s\-–]+/,'').trim();blocks.push({start:s,end:e,label:lbl||'School'})}});return blocks.sort((a,b)=>a.start-b.start)},
+  parseTasks(text){if(!text?.trim())return[];return text.split('\n').map(l=>l.replace(/^[-*•·✓✗\d.)\s]+/,'').trim()).filter(l=>l.length>2)},
+  duration(task){const t=task.toLowerCase();if(/tentamen|toets|examen/.test(t))return 90;if(/verslag|opstel|essay|scriptie/.test(t))return 80;if(/samenvatting/.test(t))return 65;if(/hoofdstuk|studer|leer/.test(t))return 50;if(/huiswerk|opgave|oefening/.test(t))return 40;if(/sport|trainen|voetbal|zwem|gym/.test(t))return 60;if(/project|presentatie/.test(t))return 70;if(/lezen|boek/.test(t))return 45;return 35},
+  emoji(text){const t=(text||'').toLowerCase();const map=[[/wiskunde|math/,'📐'],[/biologie|bio/,'🧬'],[/scheikunde|schei/,'⚗️'],[/natuurkunde|natuur/,'🔬'],[/engels|english/,'🇬🇧'],[/duits|german/,'🇩🇪'],[/Frans|french/,'🇫🇷'],[/spaans/,'🇪🇸'],[/nederlands/,'📝'],[/geschiedenis/,'📜'],[/aardrijkskunde|geo/,'🌍'],[/economie|eco/,'💰'],[/informatica|ict|computer/,'💻'],[/gym|lichamelijk|pe/,'⚽'],[/muziek/,'🎵'],[/tekenen|kunst/,'🎨'],[/tentamen|toets|examen/,'📋'],[/lezen|boek/,'📚'],[/lunch|pauze/,'🥗'],[/sport|trainen|voetbal|zwem/,'🏃'],[/school|les/,'🏫']];for(const[re,em]of map)if(re.test(t))return em;return'📝'},
+  generateDay(schedText,tasksText,extra,energy=7){
+    const blocks=this.parseBlocks(schedText);const tasks=this.parseTasks(tasksText);
+    let wake=420;if(blocks.length>0)wake=Math.max(300,blocks[0].start-75);
+    const tl=[];const add=(t,e,ic,lbl,typ)=>tl.push({t,e,ic,lbl,typ});
+    add(wake,wake+10,'⏰','Opstaan — goedemorgen! Klaar voor een productieve dag 💪','routine');
+    add(wake+10,wake+30,'🥣','Ontbijt (eten = brandstof voor je brein!)','meal');
+    if(blocks.length>0&&blocks[0].start-(wake+30)>10)add(wake+30,blocks[0].start,'🎒','Klaar maken & reizen naar school','routine');
+    let prev=null;
+    blocks.forEach(b=>{if(prev&&b.start-prev.end>=10){const gap=b.start-prev.end;add(prev.end,b.start,gap>=25?'🥗':'☕',gap>=25?'Lunchpauze':'Kleine pauze','break')}add(b.start,b.end,this.emoji(b.label),b.label,'school');prev=b});
+    const schoolEnd=blocks.length?blocks[blocks.length-1].end:wake+300;
+    add(schoolEnd,schoolEnd+15,'🏠','Thuis komen — even uitblazen','routine');
+    const breakLen=energy<=4?50:energy<=6?35:25;
+    add(schoolEnd+15,schoolEnd+15+breakLen,'😌','Herstelpauze + snack — dit verdien je!','break');
+    let cursor=schoolEnd+15+breakLen;const DINNER=1080;
+    const fh=tasks.slice(0,Math.ceil(tasks.length*0.6));const sh=tasks.slice(Math.ceil(tasks.length*0.6));
+    fh.forEach((task,i)=>{if(cursor>=DINNER-20)return;const dur=Math.ceil(this.duration(task)*(energy>=7?1:energy>=5?1.1:1.25));if(cursor+dur>DINNER)return;add(cursor,cursor+dur,this.emoji(task),task,'task');cursor+=dur;if(i<fh.length-1&&cursor<DINNER-15){add(cursor,cursor+10,'💧','Micropauze — drink water!','break');cursor+=10}});
+    if(cursor<DINNER)add(cursor,DINNER,'⏳','Vrije tijd voor het avondeten','relax');
+    add(DINNER,DINNER+45,'🍽️','Avondeten — even helemaal niets met school!','meal');cursor=DINNER+45;
+    sh.forEach((task,i)=>{if(cursor>=1230)return;const dur=this.duration(task);if(cursor+dur>1230)return;add(cursor,cursor+dur,this.emoji(task),task,'task');cursor+=dur;if(i<sh.length-1&&cursor<1225){add(cursor,cursor+8,'☕','Korte pauze','break');cursor+=8}});
+    const evStart=Math.max(cursor,1230);
+    add(evStart,Math.min(evStart+50,1265),'🎮','Vrije tijd — volledig verdiend!','relax');
+    add(1265,1295,'🛁','Douchen, tanden poetsen, pyjama aan','routine');
+    add(1295,1320,'📵','Geen schermen — lees of luister rustige muziek','routine');
+    add(1320,1321,'😴','Slaaptijd! 8-9 uur slaap = betere resultaten 🧠','sleep');
+    const seen=new Set();const sorted=tl.filter(b=>{if(seen.has(b.t))return false;seen.add(b.t);return true}).sort((a,b)=>a.t-b.t);
+    const studyMin=sorted.filter(x=>x.typ==='task'||x.typ==='school').reduce((s,x)=>s+(x.e-x.t),0);
+    const breakMin=sorted.filter(x=>x.typ==='break').reduce((s,x)=>s+(x.e-x.t),0);
+    const tips=['💧 Drink elk uur een glas water — je brein is 75% water!','📵 Telefoon weg tijdens studietijd','🧠 Moeilijkste taak als eerste — dan is je concentratie het best'];
+    if(energy<=4)tips.push('⚡ Energie laag? Powernap van 20 min werkt wonderen!');
+    if(extra?.trim())tips.push(`💬 Rekening gehouden met: "${extra.trim()}"`);
+    return{timeline:sorted,stats:{studyMin,breakMin,tasks:tasks.length,energy},tips,taskList:tasks};
+  },
+  generateWeek(schedText,tasksText,extra){
+    const tasks=this.parseTasks(tasksText);const days=['Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag'];const dayEm=['📘','📗','📙','📕','📓','🎉','☀️'];
+    const byDay={};days.forEach(d=>{byDay[d]=[]});tasks.forEach((t,i)=>{byDay[days[Math.min(i%5,4)]].push(t)});
+    const total=tasks.reduce((s,t)=>s+this.duration(t),0);
+    return{days,dayEm,byDay,total,tasks:tasks.length,tips:['🗓️ Check elke avond je plan voor morgen','🎯 Max 3 prioriteiten per dag','💤 Vaste slaaptijden','🏃 30 min beweging per dag']};
+  }
+};
+
+/* ====== RENDER ====== */
+function renderPlan(result,planType,energy,stress,ls,goals,prefs,container){
+  container.innerHTML='';
+  // Insights section
+  if(stress||ls||goals?.trim()){
+    const insH=document.createElement('div');insH.className='plan-sh';insH.textContent='🔍 Jouw Analyse';container.appendChild(insH);
+    const insGrid=document.createElement('div');insGrid.className='insight-grid';
+    const insData=[[`⚡ ${energy}/10`,'Energieniveau',energy>=7?'var(--g)':energy>=5?'var(--o)':'#FF4757'],[`${PlanrAI.emoji(stress||'')} ${stress||'Niet opgegeven'}`,'Stressvolste vak','var(--pl)'],[`🧠 ${ls||'Niet opgegeven'}`,'Leerstijl','var(--c)']];
+    insData.forEach(([v,l,c])=>{const card=document.createElement('div');card.className='insight-card';card.innerHTML=`<div style="font-size:18px;font-weight:800;color:${c};margin-bottom:4px">${v}</div><div style="font-size:12px;color:var(--txt3)">${l}</div>`;insGrid.appendChild(card)});
+    container.appendChild(insGrid);
+    if(goals?.trim()){const gH=document.createElement('div');gH.className='plan-sh';gH.textContent='🎯 Jouw Doelen';container.appendChild(gH);const gList=PlanrAI.parseTasks(goals);gList.forEach(g=>{const el=document.createElement('div');el.style.cssText='padding:6px 0;font-size:14px;color:var(--txt2)';el.innerHTML=`✅ ${g}`;container.appendChild(el)})}
+    // Learning style tips
+    const lsTips={visueel:['Maak mindmaps en kleurcodering','Gebruik YouTube uitlegvideo\'s','Teken schema\'s en diagrammen'],lezen:['Maak actieve samenvattingen','Lees met markeringen','Schrijf kernbegrippen op'],schrijven:['Schrijf alles in je eigen woorden','Maak oefentoetsen op papier','Schrijf flashcards'],doen:['Maak zoveel mogelijk oefeningen','Leg stof uit aan anderen','Gebruik flashcard-apps']};
+    const myTips=lsTips[ls]||lsTips.lezen;
+    if(ls){const ltH=document.createElement('div');ltH.className='plan-sh';ltH.textContent=`🧠 Tips voor jou (${ls} leerstijl)`;container.appendChild(ltH);myTips.forEach(tip=>{const t=document.createElement('div');t.className='plan-ti';t.innerHTML=`<span>💡</span><span>${tip}</span>`;container.appendChild(t)})}
+    // Stress tips
+    if(stress){const stH=document.createElement('div');stH.className='plan-sh';stH.textContent=`😰 ${stress} — Stressmanagement`;container.appendChild(stH);[`Splits ${stress} in kleine, overzichtelijke stukjes`,`Begin elke sessie met 5 min herhaling van wat je al weet`,`Vraag hulp aan een klasgenoot of leraar — schroom niet!`,`Neem 3 diepe ademhalingen als je vastloopt`].forEach(tip=>{const t=document.createElement('div');t.className='plan-ti';t.innerHTML=`<span>🎯</span><span>${tip}</span>`;container.appendChild(t)})}
+    const hr=document.createElement('div');hr.style.cssText='height:1px;background:var(--b);margin:20px 0';container.appendChild(hr);
+  }
+  // Timeline or week plan
+  if(planType==='day'){
+    const tlH=document.createElement('div');tlH.className='plan-sh';tlH.textContent='⏰ Jouw Dagplan';container.appendChild(tlH);
+    const dateStr=new Date().toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const meta=document.createElement('div');meta.style.cssText='font-size:13px;color:var(--txt3);margin-bottom:12px';meta.textContent=dateStr.charAt(0).toUpperCase()+dateStr.slice(1);container.appendChild(meta);
+    result.timeline.forEach(b=>{const el=document.createElement('div');el.className=`tl-block ${b.typ}`;const timeStr=(b.e-b.t<=1)?PlanrAI.toStr(b.t):`${PlanrAI.toStr(b.t)} – ${PlanrAI.toStr(b.e)}`;el.innerHTML=`<span class="tl-time">${timeStr}</span><span class="tl-ic">${b.ic}</span><span class="tl-lbl">${b.lbl}</span>`;container.appendChild(el)});
+    const stH=document.createElement('div');stH.className='plan-sh';stH.textContent='📊 Samenvatting';container.appendChild(stH);
+    [[`📚 Leertijd`,`${Math.floor(result.stats.studyMin/60)}u ${result.stats.studyMin%60}min`],[`☕ Pauzetijd`,`${result.stats.breakMin} min`],[`✅ Taken`,`${result.stats.tasks} ingepland`],[`⚡ Energie`,`${energy}/10`]].forEach(([l,v])=>{const r=document.createElement('div');r.className='plan-sr';r.innerHTML=`<span style="color:var(--txt2)">${l}</span><span style="font-weight:700;color:var(--txt)">${v}</span>`;container.appendChild(r)});
+    const tipH=document.createElement('div');tipH.className='plan-sh';tipH.textContent='💡 Tips voor vandaag';container.appendChild(tipH);
+    result.tips.forEach(tip=>{const t=document.createElement('div');t.className='plan-ti';t.innerHTML=`<span style="flex-shrink:0">${tip.charAt(0)}</span><span>${tip.slice(1)}</span>`;container.appendChild(t)});
+  }else{
+    const wkH=document.createElement('div');wkH.className='plan-sh';wkH.textContent='📅 Weekoverzicht';container.appendChild(wkH);
+    result.days.forEach((day,di)=>{const sec=document.createElement('div');sec.style.cssText='margin-bottom:14px;background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:14px';const tasks=result.byDay[day];const isWknd=di>=5;let inner=`<div style="font-size:14px;font-weight:700;color:var(--pl);margin-bottom:8px">${result.dayEm[di]} ${day}</div>`;if(tasks.length>0){tasks.forEach(t=>{inner+=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13px;color:var(--txt2)">${PlanrAI.emoji(t)} ${t} <span style="color:var(--txt3);margin-left:auto">~${PlanrAI.duration(t)} min</span></div>`})}else{inner+=`<div style="font-size:13px;color:var(--txt3)">${isWknd?'😌 Rust!':'✅ Geen taken'}</div>`}sec.innerHTML=inner;container.appendChild(sec)});
+  }
+  const ft=document.createElement('div');ft.style.cssText='margin-top:16px;padding-top:12px;border-top:1px solid var(--b);font-size:12px;color:var(--txt3);text-align:center';ft.textContent='🤖 Planr Pro AI • Eigen algoritme • Succes! 💪';container.appendChild(ft);
+}
+
+/* ====== TABS ====== */
+function setTab(t){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['form','result','hist'][i]===t));
+  document.querySelectorAll('.tab-p').forEach((p,i)=>p.classList.toggle('active',['tab-form','tab-result','tab-hist'][i]==='tab-'+t));
+  Snd.play('click');
+  if(t==='hist')renderHist();
+}
+
+/* ====== GENERATE ====== */
+let lastResult=null;
+function updateEnergy(v){document.getElementById('pl-e-v').textContent=v}
+
+function generateProPlan(e){
+  e.preventDefault();
+  const sched=document.getElementById('pl-sched').value.trim();
+  const tasks=document.getElementById('pl-tasks').value.trim();
+  const goals=document.getElementById('pl-goals').value.trim();
+  const energy=parseInt(document.getElementById('pl-energy').value);
+  const stress=document.getElementById('pl-stress').value.trim();
+  const ls=document.querySelector('input[name="ls"]:checked')?.value||'';
+  const prefs=document.getElementById('pl-prefs').value.trim();
+  const planType=document.querySelector('input[name="plan-type"]:checked')?.value||'day';
+  if(!sched&&!tasks){Toast.warn('Vul minimaal je rooster of taken in!');return}
+  const btn=document.getElementById('pl-btn');btn.disabled=true;
+  document.getElementById('pl-btn-t').textContent='⏳ AI analyseert jouw situatie...';
+  document.getElementById('pl-sp').style.display='inline-block';
+  setTimeout(()=>{
+    try{
+      let result;
+      if(planType==='day')result=PlanrAI.generateDay(sched,tasks,prefs,energy);
+      else result=PlanrAI.generateWeek(sched,tasks,prefs);
+      const out=document.getElementById('pl-out');
+      renderPlan(result,planType,energy,stress,ls,goals,prefs,out);
+      lastResult={result,planType,energy,stress,ls,goals,prefs,date:Date.now()};
+      setTab('result');Snd.play('ok');Toast.ok('Pro plan klaar! ✨');
+    }catch(err){Toast.err('Fout: '+err.message)}
+    btn.disabled=false;document.getElementById('pl-btn-t').textContent='✨ Pro Plan Genereren';document.getElementById('pl-sp').style.display='none';
+  },1000);
+}
+
+function savePro(){
+  if(!lastResult)return;
+  const hist=S.g('pro_hist')||[];
+  const label=lastResult.planType==='day'?'Dagplan':'Weekplan';
+  hist.unshift({...lastResult,label,dateStr:new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})});
+  if(hist.length>15)hist.pop();
+  S.s('pro_hist',hist);Toast.ok('Plan opgeslagen!',2000);Snd.play('ok');renderHist();
+}
+function copyPro(){Toast.ok('Plan gekopieerd als plaintekst 📋',2000)}
+function renderHist(){
+  const hist=S.g('pro_hist')||[];const list=document.getElementById('hist-list');
+  if(!hist.length){list.innerHTML='<div style="text-align:center;padding:48px;color:var(--txt3)">📭 Nog geen opgeslagen plannen.<br><br>Genereer een plan en klik op "Opslaan"!</div>';return}
+  list.innerHTML=hist.map((h,i)=>`<div class="hist-item" onclick="loadHist(${i})"><div style="font-size:12px;color:var(--txt3);margin-bottom:4px">📅 ${h.dateStr} • ${h.label}</div><div style="font-size:14px;font-weight:600">Energie: ${'⭐'.repeat(Math.round(h.energy/2))} ${h.energy}/10 ${h.stress?`• Stressvak: ${h.stress}`:''} ${h.ls?`• Leerstijl: ${h.ls}`:''}</div></div>`).join('');
+}
+function loadHist(i){const hist=S.g('pro_hist')||[];if(!hist[i])return;const h=hist[i];lastResult=h;const out=document.getElementById('pl-out');renderPlan(h.result,h.planType,h.energy,h.stress,h.ls,h.goals,h.prefs,out);setTab('result');Toast.info('Plan geladen!',2000)}
+function clearHist(){if(!confirm('Weet je zeker dat je alle geschiedenis wilt wissen?'))return;S.d('pro_hist');renderHist();Toast.info('Geschiedenis gewist.',2000)}
+
+/* ====== INIT ====== */
+document.addEventListener('DOMContentLoaded',()=>{
+  Cfg.theme();
+  if(!Auth.req())return;
+  const p=Auth.profile();
+  const plan=Auth.effectivePlan();
+  // Check pro access (admin bypasses)
+  if(plan!=='pro'&&plan!=='basis'&&!Auth.isAdmin()){Toast.warn('Pro Planner vereist Basis of Pro plan!');setTimeout(()=>location.href='premium.html',2000);return}
+  document.getElementById('sb-av').textContent=p.name[0].toUpperCase();
+  document.getElementById('sb-name').textContent=p.name;
+  document.getElementById('sb-plan').textContent=Auth.isAdmin()?'Admin 🔒 Pro':(PN[plan]||'Free');
+  const btn=document.getElementById('mob-btn');const sb=document.getElementById('sidebar');
+  document.addEventListener('click',e=>{if(!sb.contains(e.target)&&!btn.contains(e.target))sb.classList.remove('open')});
+});
+</script>
+</body>
+</html>
